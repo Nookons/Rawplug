@@ -1,0 +1,13 @@
+.Main {
+    right: 14px;
+    bottom: calc(40px + 96px + 14px);
+    border: none;
+}
+
+.Main > button {
+    border: none;
+}
+.Main > button > div{
+    background-color: #272829 !important;
+    border-radius: 0 !important;
+}

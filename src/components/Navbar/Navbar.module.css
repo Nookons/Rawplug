@@ -3,12 +3,12 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
-    border-bottom: 1px solid black;
+    padding: 14px;
+    border-bottom: 1px solid #464342;
 }
 
 .NavBar > a{
-    color: black;
+    color: #464342;
     text-decoration: none;
     margin-left: 14px;
     white-space: nowrap;
@@ -16,16 +16,24 @@
 }
 
 .NavBarBurger {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    top: 78px;
+    right: 0;
+    bottom: 0;
+    left: 0;
     transition: .3s all ease;
+    padding: 14px;
+    background-color: rgb(0,0,0, 0.75);
+    z-index: 1;
+    overflow: hidden;
+    animation: menuAnimation;
+    animation-duration: .5s;
 }
 .NavBarBurger > a{
     color: white;
-    background-color: black;
+    background-color: #464342;
     display: block;
     width: 100%;
     text-align: center;
@@ -47,9 +55,9 @@
     top: 50%;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
-    width: 35px;
-    background-color: black;
-    height: 5px;
+    width: 25px;
+    background-color: #464342;
+    height: 4px;
     border-radius: 4px;
 }
 
@@ -59,7 +67,7 @@
     width: 100%;
     height: 100%;
     top: -200%;
-    background-color: black;
+    background-color: #464342;
     border-radius: 4px;
 }
 .Burger > a:after {
@@ -68,7 +76,7 @@
     width: 100%;
     height: 100%;
     top: 200%;
-    background-color: black;
+    background-color: #464342;
     border-radius: 4px;
 }
 
@@ -84,7 +92,7 @@
     top: 50%;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
-    width: 35px;
+    width: 25px;
     height: 5px;
     background-color: transparent;
 }
@@ -95,7 +103,7 @@
     width: 100%;
     height: 100%;
     top: 50%;
-    background-color: black;
+    background-color: #464342;
     border-radius: 4px;
     transform: rotate(45deg);
 }
@@ -105,19 +113,31 @@
     width: 100%;
     height: 100%;
     top: 50%;
-    background-color: black;
+    background-color: #464342;
     border-radius: 4px;
     transform: rotate(-45deg);
 }
 
 .LogoPlace {
-    max-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.LogoPlace > article{
+    margin-left: 4px;
 }
 
 .LogoPlace > img{
-    max-width: 100%;
-    animation: infinite LogoAnimation ;
-    animation-duration: 15s;
+    max-width: 25px;
+}
+@keyframes menuAnimation {
+    0% {
+        top: 100%;
+    }
+    100% {
+        top: 78px;
+    }
 }
 
 @media screen and (max-width: 750px) {
@@ -127,14 +147,5 @@
 
     .Burger > a{
         display: block;
-    }
-}
-
-@keyframes LogoAnimation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
     }
 }
