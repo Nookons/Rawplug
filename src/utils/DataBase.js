@@ -1,4 +1,4 @@
-import {getDatabase, ref, set, push, onValue} from "firebase/database";
+import {getDatabase, ref, set, push, onValue, update, child} from "firebase/database";
 import {db} from "../firebase";
 
 export function writeMyUserData({data}) {
@@ -21,21 +21,23 @@ export function writeMyUserData({data}) {
 }
 export function writeUserData({data}) {
     const id = Date.now();
+    const db = getDatabase();
 
-    try {
-        // Set the values to the database
-        set(ref(db, 'items/' + id + '/'), {
-            id: id,
-            date: data.date,
-            item: data.item,
-            batchNumber: data.batchNumber
-        });
+    // A post entry.
+    const postData = {
+        id: id,
+        date: data.date,
+        item: data.item,
+        location: 'A-1-2',
+        batchNumber: data.batchNumber
+    };
 
-        return true
-    }
-    catch (e) {
-        console.error(e)
-    }
+    // Get a key for a new Post.
+    const newPostKey = push(child(ref(db), 'posts')).key;
 
-    return true
+    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const updates = {};
+    updates['items/' + newPostKey] = postData;
+
+    return update(ref(db), updates);
 }

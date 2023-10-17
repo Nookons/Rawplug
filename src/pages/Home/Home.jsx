@@ -2,14 +2,13 @@ import React, {useEffect, useState} from 'react';
 import styles from './Home.module.css'
 import MyButton from "../../components/MyButton/MyButton";
 import {Cascader, DatePicker, Input} from "antd";
-import Search from "antd/es/input/Search";
-import MyFloatButton from "../../components/MyFloatButton/MyFloatButton";
 import MyModal from "../../components/MyModal/MyModal";
 import {options} from "../../utils/Options";
-import {getItems, writeMyUserData, writeUserData} from "../../utils/DataBase";
-import {useList, useListVals} from "react-firebase-hooks/database";
+import {writeMyUserData, writeUserData} from "../../utils/DataBase";
+import {useListVals} from "react-firebase-hooks/database";
 import {ref} from "firebase/database";
 import {db} from "../../firebase";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 
 
 const Home = () => {
@@ -124,14 +123,22 @@ const Home = () => {
                  My
             </MyButton>
 
-            <div style={{backgroundColor: 'white', padding: 14, marginTop:24}}>
+            <div style={{ padding: 14, marginTop:24}}>
                 <h1>Items</h1>
                 {snapshots.map(e => {
 
                     return (
-                        <div style={{border: '1px solid black', marginTop:14, padding: 4, display: 'flex', gap: 14, flexDirection: 'column'}}>
-                            <h4>Id : <span>{e.id}</span></h4>
-                            <div style={{display: 'flex', gap: 4}}>
+                        <div style={{backgroundColor: 'white', boxShadow: '0 0 14px rgb(0,0,0, .35)', borderRadius: 14, marginTop:14, padding: 14, display: 'flex', gap: 4, flexDirection: 'column'}}>
+                            <h4 style={{color: 'gray', fontSize: 14}}># : <span>{e.id}</span></h4>
+                            {e.item.map(e => {
+                                if (e === 'Barrel') {
+                                    return <img style={{maxWidth: '100%'}} src="https://tara-snab.ru/wp-content/uploads/2019/08/bo4ka-metall.png" alt=""/>
+                                }
+                                else if (e === 'R-KEM II') {
+                                    return <img style={{maxWidth: '100%'}} src="https://assets.rawlplug.com/05d18cff-ef80-44ed-8b2b-acda68226ce1/L/R-KEM-II-380_pret_gwintowany_product_photo_1_WebResFull.png" alt=""/>
+                                }
+                            })}
+                            <div style={{display: 'flex', gap: 4, alignItems: 'center'}}>
                                 <h4>Label -</h4>
                                 {e.item.map(e => {
                                     return (
@@ -141,6 +148,11 @@ const Home = () => {
                             </div>
                             <h4>Date : <span>{e.date}</span></h4>
                             <h4>Batch #: <span>{e.batchNumber}</span></h4>
+                            <h4>Location : <span>{e.location}</span></h4>
+                            <div style={{display: 'flex', flexDirection: 'column' }}>
+                                <MyButton><EditOutlined /></MyButton>
+                                <MyButton><DeleteOutlined /></MyButton>
+                            </div>
                         </div>
                     )
                 })}
