@@ -28,7 +28,7 @@ export function writeUserData({data}) {
         id: id,
         date: data.date,
         item: data.item,
-        location: 'A-1-2',
+        location: data.location.join('-'),
         batchNumber: data.batchNumber
     };
 

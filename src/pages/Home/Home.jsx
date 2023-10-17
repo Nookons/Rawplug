@@ -4,6 +4,7 @@ import MyButton from "../../components/MyButton/MyButton";
 import {Cascader, DatePicker, Input} from "antd";
 import MyModal from "../../components/MyModal/MyModal";
 import {options} from "../../utils/Options";
+import {location} from "../../utils/Options";
 import {writeMyUserData, writeUserData} from "../../utils/DataBase";
 import {useListVals} from "react-firebase-hooks/database";
 import {ref} from "firebase/database";
@@ -30,6 +31,7 @@ const Home = () => {
     const [item, setItem] = useState();
     const [date, setDate] = useState();
     const [batchNumber, setBatchNumber] = useState();
+    const [mylocation, setMyLocation] = useState();
 
 
     const tasks = [
@@ -47,6 +49,9 @@ const Home = () => {
     const onChange = (value) => {
         setItem(value)
     };
+    const onChangeLocation = (value) => {
+        setMyLocation(value)
+    };
 
     const onChangeDate = (date, dateString) => {
         setDate(dateString)
@@ -62,7 +67,8 @@ const Home = () => {
         const data = {
             date: date,
             item: item,
-            batchNumber: batchNumber
+            batchNumber: batchNumber,
+            location: mylocation
         }
 
         const response = writeUserData({data})
@@ -93,6 +99,7 @@ const Home = () => {
             >
                 <article>Select material :</article>
                 <Cascader style={{width: '100%'}} options={options} onChange={onChange} placeholder="Please select" />
+                <Cascader style={{width: '100%'}} options={location} onChange={onChangeLocation} placeholder="Location" />
                 <article>Select Date :</article>
                 <DatePicker style={{width: '100%'}} onChange={onChangeDate} />
                 <article>Only if need:</article>
