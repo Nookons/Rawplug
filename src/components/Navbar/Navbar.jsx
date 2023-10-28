@@ -22,7 +22,7 @@ const Navbar = () => {
             </div>
             <div className={burger ? styles.NavBarBurger : styles.NavBar}>
                 <MyButton><Link to="/">Home</Link></MyButton>
-                <MyButton><Link to="/store">Store</Link></MyButton>
+                <MyButton><Link to="/store">Warehouse</Link></MyButton>
             </div>
         </div>
     )

@@ -23,21 +23,20 @@ export function writeUserData({data}) {
     const id = Date.now();
     const db = getDatabase();
 
-    // A post entry.
     const postData = {
         id: id,
-        date: data.date,
-        item: data.item,
-        location: data.location.join('-'),
-        batchNumber: data.batchNumber
+        date: '22-10-2023',
+        mixingDate: '14-10-2023',
+        name: 'PSF-FR',
+        type: 'Cart',
+        location: 'A-1-0-1',
+        batchNumber: '19342',
+        status: 'Approved'
     };
 
-    // Get a key for a new Post.
-    const newPostKey = push(child(ref(db), 'posts')).key;
-
-    // Write the new post's data simultaneously in the posts list and the user's post list.
+    const newPostKey = push(child(ref(db), postData.type)).key;
     const updates = {};
-    updates['items/' + newPostKey] = postData;
+    updates['main/items/' + postData.type + '/' + newPostKey] = postData;
 
     return update(ref(db), updates);
 }
