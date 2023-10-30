@@ -12,6 +12,7 @@ import {db} from "../../firebase";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import uniqBarrel from "../../utils/uniq";
 import BarrelList from "../../components/BarrelList/BarrelList";
+import CartList from "../../components/CartList/CartList";
 
 
 const Home = () => {

@@ -1,43 +1,47 @@
-
+.Main {
+    background-color: #eeeeee;
+    padding: 14px;
+    border-radius: 6px;
+}
 .item {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
-    align-items: center;
-    gap: 14px;
-    text-align: left;
-    margin-top: 14px;
-    background-color: #efefef;
-    padding: 8px 14px;
-    border-radius: 4px;
-    transition: .3s all ease-in-out;
+    padding: 16px 6px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: .3s all ease;
+    -webkit-filter: blur(0.5px);
+    filter: blur(0.5px);
+    margin-top: 0.5vw;
+    box-shadow:  0 0 5px rgb(0,0,0, 0.25);
 }
 .item:hover {
-    background-color: #cccccc;
-}
-.item > h4{
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    white-space: nowrap;
-    border-right: 1px solid gray;
-    border-radius: 2px;
-    color: #3d3d3d;
-}
-.item > h4 > span{
-    border-top: 1px solid black;
-    padding: 4px;
-    color: #181818;
+    filter: blur(0px);
 }
 
-.Approved {
+.item td span{
+    //color: white;
+}
+.item th span{
+    //color: white;
+}
+
+.badge {
+    padding: 4px 14px;
+    border-radius: 6px;
+}
+
+
+.success {
     background-color: #8fff8f;
-    padding: 4px;
+    padding: 4px 14px;
+    border-radius: 6px;
 }
 
-.Error {
-    background-color: #ff9494;
+.processing {
+    background-color: #bdfcf2;
+    padding: 4px;
+}
+.error {
+    background-color: #ffa5a5;
     padding: 4px;
 }
 
