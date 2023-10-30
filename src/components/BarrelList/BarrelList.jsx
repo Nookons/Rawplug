@@ -65,6 +65,7 @@ const BarrelList = ({addTestItem}) => {
                 setVisible={setVisible}
                 item={item}
             />
+            <MyButton click={addTestItem}>Add test material</MyButton>
             {!loading
                 ?
                 <div>
