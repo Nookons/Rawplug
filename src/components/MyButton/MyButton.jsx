@@ -1,9 +1,9 @@
 import React from 'react';
 import {Button} from "antd";
 
-const MyButton = ({children, type, click, ...props}) => {
+const MyButton = ({children, type, click, value, ...props}) => {
     return (
-        <Button {...props} onClick={click} style={{marginTop: 4, marginLeft: 4}} type={type}>{children}</Button>
+        <Button {...props} value={value} onClick={click} style={{marginTop: 4, marginLeft: 4}} type={type}>{children}</Button>
     );
 };
 
