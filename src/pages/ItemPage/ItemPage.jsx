@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {getItem, removeItem} from "../../utils/DataBase";
+import {getItem, removeItem, updateUserData} from "../../utils/DataBase";
 import MyButton from "../../components/MyButton/MyButton";
 import {Badge, Descriptions} from "antd";
 import styles from "../../components/BarrelList/BarrelList.module.css";
@@ -30,6 +30,11 @@ const ItemPage = () => {
         console.log(response)
         alert('Item deleted')
         window.history.back();
+    }
+
+    function changeItem(e) {
+        const id = e.target.value
+        const response = updateUserData({id})
     }
 
 
@@ -71,12 +76,12 @@ const ItemPage = () => {
             {item
                 ?
                 <div style={{display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap'}}>
-                    {/*<div key={item.id}>
+                    <div key={item.id}>
                         <picture style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
                             <source style={{maxWidth: '100%'}} srcSet={item.imgUrl} media="(min-width: 800px)" />
                             <img style={{maxWidth: '100%'}} src={item.imgUrl} alt="Description of the image" />
                         </picture>
-                    </div>*/}
+                    </div>
                     <Descriptions className={styles.itemOnPage} title='' bordered items={itemOptions}/>
                     <div style={{
                         display: 'flex',

@@ -1,20 +1,11 @@
 import React, {useState} from 'react';
-import {Badge, ConfigProvider, Descriptions, theme} from "antd";
+import {Badge, Descriptions, theme} from "antd";
 import MyButton from "../MyButton/MyButton";
 import styles from './BarrelList.module.css'
-import {removeItem, updateUserData} from "../../utils/DataBase";
-import {useObject} from "react-firebase-hooks/database";
-import {ref} from "firebase/database";
-import {db} from "../../firebase";
+import {removeItem} from "../../utils/DataBase";
 import {DeleteOutlined, FullscreenOutlined, InfoCircleOutlined} from "@ant-design/icons";
 
 const Item = ({itemsArray, items, myDate, add, change, remove}) => {
-
-    function changeStatus(e) {
-        const id = e.target.value
-        const response = updateUserData({id})
-    }
-
     function openItem(e) {
         let targetElement = e.target;
         let closestButton = targetElement.closest("button");

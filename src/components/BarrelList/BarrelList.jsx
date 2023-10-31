@@ -37,16 +37,6 @@ const BarrelList = ({addTestItem}) => {
             console.error(error);
         }
     }
-    async function remove(e) {
-        try {
-            const id = e.target.value;
-            const response = await removeItem({ id });
-            window.reload();
-            console.log(response)
-        } catch (error) {
-            console.error(error);
-        }
-    }
 
     const add = () => {
         console.log(items)
@@ -77,7 +67,6 @@ const BarrelList = ({addTestItem}) => {
                                 myDate={myDate}
                                 add={add}
                                 change={change}
-                                remove={remove}
                             />
                         :
                         <div>
