@@ -79,7 +79,7 @@ const Item = ({itemsArray, items, myDate, add, change, remove}) => {
                     }
                 })
             }
-            <MyButton style={{margin: "0 !important"}} click={add}>More</MyButton>
+            <MyButton style={{margin: "0 !important"}} click={add}>More...</MyButton>
         </div>
     );
 };

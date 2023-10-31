@@ -99,7 +99,7 @@ export function getItem({id}) {
     });
 }
 export function removeItem({ id }) {
-    const starCountRef = ref(db, 'main/items/Cart/' + id);
+    const starCountRef = ref(db, 'main/items/Barrel/' + id);
 
     return new Promise((resolve, reject) => {
         remove(starCountRef).then(() => {
