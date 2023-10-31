@@ -6,6 +6,7 @@ import {removeItem, updateUserData} from "../../utils/DataBase";
 import {useObject} from "react-firebase-hooks/database";
 import {ref} from "firebase/database";
 import {db} from "../../firebase";
+import {DeleteOutlined, FullscreenOutlined, InfoCircleOutlined} from "@ant-design/icons";
 
 const Item = ({itemsArray, items, myDate, add, change, remove}) => {
 
@@ -20,6 +21,13 @@ const Item = ({itemsArray, items, myDate, add, change, remove}) => {
 
         window.location.href = "/item?_" + closestButton.value;
         console.log(closestButton.value);
+    }
+
+    async function deleteItem(e) {
+        const id = e.target.value
+        const response = await removeItem({id})
+        console.log(response)
+        alert('Item deleted')
     }
 
     return (
@@ -59,21 +67,22 @@ const Item = ({itemsArray, items, myDate, add, change, remove}) => {
                         {
                             key: '8',
                             label: 'Status',
-                            children:
-                                <Badge className={rootClasses.join(' ')} status={element.status.status}
-                                       text={element.status.label}/>,
-                        },
-                        {
-                            key: '9',
-                            label: 'Batch N',
-                            children: '19345',
+                            children: <Badge className={rootClasses.join(' ')} status={element.status.status} text={element.status.label}/>,
                         },
                     ];
                     if (index <= items) {
                         return (
                             <div key={element.id} className={styles.item}>
                                 <Descriptions title='' bordered items={item}/>
-                                <MyButton value={element.id} click={openItem}>Open</MyButton>
+                                <div style={{
+                                    display: 'flex',
+                                    float: 'right',
+                                    gap: 4,
+                                    margin: '14px 0'
+                                }}>
+                                    <MyButton value={element.id} click={openItem}><InfoCircleOutlined /></MyButton>
+                                    <MyButton value={element.id} click={deleteItem}><DeleteOutlined /></MyButton>
+                                </div>
                             </div>
                         )
                     }

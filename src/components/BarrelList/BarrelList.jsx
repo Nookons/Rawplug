@@ -11,7 +11,7 @@ import {Badge, Input, Select} from "antd";
 import ChangeModal from "../ChangeModal";
 
 const BarrelList = ({addTestItem}) => {
-    const [data, loading, error] = useListVals(ref(db, 'main/items/Cart'));
+    const [data, loading, error] = useListVals(ref(db, 'main/items/Barrel'));
     const [items, setItems] = useState(0);
     const [item, setItem] = useState(null);
     const [itemsArray, setItemsArray] = useState([]);

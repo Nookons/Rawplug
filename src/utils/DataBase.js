@@ -32,9 +32,10 @@ export function writeUserData({data}) {
         mixingDate: '14-10-2023',
         changeDate: date,
         name: 'PSF-FR',
-        type: 'Cart',
+        type: 'Barrel',
         location: 'A-1-0-1',
         batchNumber: '19342',
+        imgUrl: 'https://atlas-content-cdn.pixelsquid.com/stock-images/metal-barrel-steel-y1ME6PC-600.jpg',
         status: {
             label: 'Avviable',
             status: 'success'
@@ -86,7 +87,7 @@ export function updateUserData({data}) {
 }
 
 export function getItem({id}) {
-    const starCountRef = ref(db, 'main/items/Cart/' + id);
+    const starCountRef = ref(db, 'main/items/Barrel/' + id);
 
     return new Promise((resolve, reject) => {
         onValue(starCountRef, (snapshot) => {

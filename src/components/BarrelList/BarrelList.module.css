@@ -7,12 +7,25 @@
     border-radius: 6px;
     cursor: pointer;
     transition: .3s all ease;
+    margin-top: 1.5dvh;
+    background-color: rgb(0,0,0, 0.00);
+    border: 1px solid #d2d2d2;
+    width: 100%;
+}
+span{
+    white-space: pre-line;
+}
+.itemOnPage {
+    padding: 16px 6px;
+    border-radius: 6px;
+    transition: .3s all ease;
     margin-top: 1.5vw;
-    box-shadow:  0 0 5px rgb(0,0,0, 0.25);
     background-color: rgb(0,0,0, 0.025);
+    width: 100%;
 }
 .item:hover {
     background-color: rgb(0,0,0, 0.05);
+    border: 1px solid transparent;
 }
 
 .item td span{
