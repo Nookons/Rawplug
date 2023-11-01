@@ -36,8 +36,9 @@ body {
 }
 
 ::selection {
-  background-color: #FFF6E0;
-  color: #272829;
+  background-color: #ff0f4b;
+  color: #ffffff;
+  padding: 4px;
 }
 
 @media (prefers-color-scheme: dark) {

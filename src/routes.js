@@ -1,6 +1,6 @@
 import {HOME_ROUTE, ITEM_PAGE, STORE_ROUTE} from "./utils/consts";
 import Home from "./pages/Home/Home";
-import Store from "./pages/Store/Store"
+import WareHouse from "./pages/WareHouse/WareHouse"
 import ItemPage from "./pages/ItemPage/ItemPage";
 
 // routes for users
@@ -12,7 +12,7 @@ export const publicRoutes = [
     },
     {
         path: STORE_ROUTE,
-        Component: Store,
+        Component: WareHouse,
         label: 'Home',
     },
     {

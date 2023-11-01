@@ -21,32 +21,39 @@ export function writeMyUserData({data}) {
     }
 }
 
-export function writeUserData({data}) {
+export function writeUserData({ data }) {
     const id = Date.now();
     const db = getDatabase();
-    const date = new Date().toString();
+    const currentDate = new Date();
 
-    const postData = {
+    const barrelTemplate = {
         id: id,
-        date: '22-10-2023',
-        mixingDate: '14-10-2023',
-        changeDate: date,
-        name: 'PSF-FR',
-        type: 'Barrel',
-        location: 'A-1-0-1',
-        batchNumber: '19342',
+        date: data ? currentDate.toDateString() : 'Unknown',
+        mixingDate: data ?  data.mixingDate : 'Unknown',
+        changeDate: currentDate.toString(),
+        name: data ? data.name : 'Unknown',
+        type: data ? data.type : 'Unknown',
+        location: data ? data.location : 'Unknown',
+        batchNumber: data ? data.batchNumber : 'Unknown',
         imgUrl: 'https://atlas-content-cdn.pixelsquid.com/stock-images/metal-barrel-steel-y1ME6PC-600.jpg',
         status: {
-            label: 'Avviable',
-            status: 'success'
+            label: data ? data.status.label : 'Unknown',
+            status: data ? data.status.status : 'Unknown'
         }
     };
 
-    const newPostKey = push(child(ref(db), postData.type)).key;
     const updates = {};
-    updates['main/items/' + postData.type + '/' + postData.id] = postData;
+    updates['main/items/' + (data ? data.type + '/' : 'Barrel/') + id] = barrelTemplate;
 
-    return update(ref(db), updates);
+    return new Promise((resolve, reject) => {
+        update(ref(db), updates)
+            .then(() => {
+                resolve(barrelTemplate);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
 }
 
 export function updateUserData({data}) {
@@ -98,7 +105,8 @@ export function getItem({id}) {
         });
     });
 }
-export function removeItem({ id }) {
+
+export function removeItem({id}) {
     const starCountRef = ref(db, 'main/items/Barrel/' + id);
 
     return new Promise((resolve, reject) => {
