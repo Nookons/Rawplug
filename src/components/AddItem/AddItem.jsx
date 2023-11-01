@@ -3,7 +3,7 @@ import {location, options} from "../../utils/Options";
 import {Cascader, DatePicker, Flex, Input, Select} from 'antd';
 import MyButton from "../MyButton/MyButton";
 
-const AddItem = ({addItem, batchNumber, setType, setMixingDate, setBatchNumber, setStatus, setLocation}) => {
+const AddItem = ({handleAddItem, batchNumber, setType, setMixingDate, setBatchNumber, setStatus, setLocation}) => {
     const [barrel, setBarrel] = useState(false);
 
     const onChange = (e) => {
@@ -59,7 +59,7 @@ const AddItem = ({addItem, batchNumber, setType, setMixingDate, setBatchNumber, 
                             { value: 'error', label: 'Hold' },
                         ]}
                     />
-                    <MyButton click={addItem}>Save</MyButton>
+                    <MyButton click={handleAddItem}>Save</MyButton>
                 </div>
                 :
                 <div></div>

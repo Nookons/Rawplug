@@ -52,38 +52,35 @@ const Home = () => {
         },
     ];
 
-    async function addItem (e) {
-        let label = null
+    const handleAddItem = async () => {
+        const itemData = {
+            name: type ? type[1] : 'Unknown',
+            type: type ? type[0] : 'Unknown',
+            mixingDate: mixingDate || 'Unknown',
+            batchNumber: batchNumber || 'Unknown',
+            location: location ? location.join('-') : 'Unknown',
+            status: {
+                status: status || 'Unknown',
+                label: getStatusLabel(status),
+            }
+        };
 
+        const response = await writeUserData({ data: itemData });
+        console.log(response);
+    };
+
+    const getStatusLabel = (status) => {
         switch (status) {
             case "success":
-                label = 'Used';
-                break;
+                return 'Used';
             case "processing":
-                label = 'Available';
-                break;
+                return 'Available';
             case "error":
-                label = 'Hold';
-                break;
+                return 'Hold';
             default:
-                console.log("unknown");
+                return 'Unknown';
         }
-
-        const data = {
-            name: type[1],
-            type: type[0],
-            mixingDate: mixingDate,
-            batchNumber: batchNumber,
-            location: location.join('-'),
-            status: {
-                status: status,
-                label: label
-            }
-        }
-
-        const response = await writeUserData({data})
-        console.log(response)
-    }
+    };
 
     async function addItemModal () {
         setVisible(true)
@@ -104,7 +101,7 @@ const Home = () => {
                     setType={setType}
                     setStatus={setStatus}
                     setLocation={setLocation}
-                    addItem={addItem}
+                    handleAddItem={handleAddItem}
                 />
             </MyModal>
 
