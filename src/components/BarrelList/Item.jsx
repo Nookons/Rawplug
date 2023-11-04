@@ -6,6 +6,8 @@ import {removeItem} from "../../utils/DataBase";
 import {DeleteOutlined, FullscreenOutlined, InfoCircleOutlined} from "@ant-design/icons";
 
 const Item = ({itemsArray, items, myDate, add, change, remove}) => {
+
+
     function openItem(e) {
         let targetElement = e.target;
         let closestButton = targetElement.closest("button");
