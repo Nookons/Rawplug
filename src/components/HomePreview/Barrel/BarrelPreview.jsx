@@ -3,7 +3,9 @@ import {useListVals} from "react-firebase-hooks/database";
 import {ref} from "firebase/database";
 import {db} from "../../../firebase";
 import styles from './BarrelPreview.module.css'
-import { Divider, Form, Radio, Skeleton, Space, Switch } from 'antd';
+import {Avatar, Card, Divider, Form, Radio, Skeleton, Space, Switch} from 'antd';
+import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
+import Meta from "antd/es/card/Meta";
 
 const BarrelPreview = () => {
     const [data, loading, error] = useListVals(ref(db, 'main/items/Barrel'));
@@ -16,28 +18,35 @@ const BarrelPreview = () => {
         return a.batchNumber.localeCompare(b.batchNumber);
     });*/
 
-
-
-    console.log(data);
-
     const openItem = useCallback((event) => {
         let targetElement = event.target;
-        let id = targetElement.closest("div").id;
+        let id = targetElement.closest('span').id;
 
         window.location.href = "/item?_" + id;
-        console.log(id);
     }, []);
 
     return (
-        <div>
+        <div className={styles.Main}>
             {data.length
                 ?
                 data.reverse().map((item, index) => {
                     return (
-                        <div id={item.id} className={styles.item} onClick={openItem}>
-                            <h4>Batch number: <br/><span>{item.batchNumber}</span></h4>
-                            <h4>Label:  <br/><span>{item.name}</span></h4>
-                            <h4>Mixing:  <br/><span>{item.mixingDate}</span></h4>
+                        <div id={item.id} data-key={'item'} className={styles.item}>
+                            <Card
+                                style={{ width: '100%' }}
+
+                                actions={[
+                                    <SettingOutlined key="setting" />,
+                                    <EditOutlined key="edit" />,
+                                    <EllipsisOutlined id={item.id} onClick={openItem} key="ellipsis" />,
+                                ]}
+                            >
+                                <Meta
+                                    avatar={<Avatar src={item.imgUrl} />}
+                                    title={item.name + '  #' +item.batchNumber}
+                                    description={item.mixingDate}
+                                />
+                            </Card>
                         </div>
                     )
                 })

@@ -1,12 +1,13 @@
 .Main {
-
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
 }
 
 .item {
-    display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(50px, 1fr) );
+    display: flex;
     gap: 4px;
-    width: 100%;
     margin-top: 1dvh;
     cursor: pointer;
     transition: .3s all ease;
@@ -16,8 +17,8 @@
 }
 .item:hover{
     //background-color: rgb(0,0,0, 0.75);
-    border: 1px solid rgb(0, 149, 255);
-    box-shadow:   0 5px 10px rgb(0, 149, 255);
+    border: 1px solid rgb(0, 149, 255, 0.5);
+    box-shadow:   0 5px 10px rgb(0, 149, 255, 0.25);
 }
 .item > h4{
     padding: 1dvh;
