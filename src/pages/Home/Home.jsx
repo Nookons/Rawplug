@@ -1,19 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import styles from './Home.module.css'
 import MyButton from "../../components/MyButton/MyButton";
-import {Cascader, DatePicker, Input, Tabs} from "antd";
+import {Tabs} from "antd";
 import MyModal from "../../components/MyModal/MyModal";
-import {options} from "../../utils/Options";
-import {location} from "../../utils/Options";
-import {writeMyUserData, writeUserData} from "../../utils/DataBase";
-import {useList, useListKeys, useListVals, useObject} from "react-firebase-hooks/database";
-import {ref} from "firebase/database";
-import {db} from "../../firebase";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
-import uniqBarrel from "../../utils/uniq";
-import BarrelList from "../../components/BarrelList/BarrelList";
-import CartList from "../../components/CartList/CartList";
+import {writeUserData} from "../../utils/DataBase";
+import {FileAddOutlined, SearchOutlined} from "@ant-design/icons";
 import AddItem from "../../components/AddItem/AddItem";
+import BarrelPreview from "../../components/HomePreview/Barrel/BarrelPreview";
 
 
 const Home = () => {
@@ -38,7 +31,7 @@ const Home = () => {
         {
             key: '1',
             label: 'Barrel',
-            children: <BarrelList />,
+            children: <BarrelPreview />,
         },
         {
             key: '2',
@@ -107,11 +100,12 @@ const Home = () => {
 
             <div className={styles.Banner}>
                 <div className={styles.BannerText}>
-                    <h1>Billing</h1>
-                    <h4 style={{color: 'gray'}}>Manage your billing and payment details</h4>
+                    <h1>Warehouse management of materials</h1>
+                    <h4 style={{color: 'gray'}}>and material movements</h4>
                 </div>
                 <div className={styles.BannerButton}>
-                    <MyButton click={addItemModal}>Add</MyButton>
+                    <MyButton click={addItemModal}><FileAddOutlined /></MyButton>
+                    <MyButton click={addItemModal}><SearchOutlined /></MyButton>
                     <MyButton>Download PDF Report</MyButton>
                 </div>
             </div>
