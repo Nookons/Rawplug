@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {location, options} from "../../utils/Options";
 import {Cascader, DatePicker, Flex, Input, Select} from 'antd';
 import MyButton from "../MyButton/MyButton";
+import styles from './AddItem.module.css'
 
 const AddItem = ({handleAddItem, batchNumber, setType, setMixingDate, setBatchNumber, setStatus, setLocation}) => {
     const [barrel, setBarrel] = useState(false);
@@ -30,7 +31,7 @@ const AddItem = ({handleAddItem, batchNumber, setType, setMixingDate, setBatchNu
 
 
     return (
-        <div>
+        <div style={{width: '100%'}}>
             <Cascader.Panel options={options} onChange={onChange}/>
             {barrel
                 ?
