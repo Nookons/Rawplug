@@ -3,10 +3,11 @@ import {useListVals} from "react-firebase-hooks/database";
 import {ref} from "firebase/database";
 import {db} from "../../../firebase";
 import styles from './BarrelPreview.module.css'
-import {Avatar, Badge, Card, Divider, Form, Radio, Skeleton, Space, Switch} from 'antd';
+import {Avatar, Badge, Card, Divider, Form, Radio, Skeleton, Space, Statistic, Switch} from 'antd';
 import {EditOutlined, EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import stylesBarrel from '../../BarrelList/BarrelList.module.css'
+import CountUp from 'react-countup';
 
 const BarrelPreview = () => {
     const [data, loading, error] = useListVals(ref(db, 'main/items/Barrel'));
@@ -26,55 +27,61 @@ const BarrelPreview = () => {
         window.location.href = "/item?_" + id;
     }, []);
 
+    const formatter = (value) => <CountUp end={value} separator="," />;
+
     return (
-        <div className={styles.Main}>
-            {data.length
-                ?
-                data.reverse().map((item, index) => {
-                    const rootClasses = [stylesBarrel.badge]
+        <div>
+            <Statistic title="All items quantity:" value={data.length} formatter={formatter}/>
+            <hr/>
+            <div className={styles.Main}>
+                {data.length
+                    ?
+                    data.reverse().map((item, index) => {
+                        const rootClasses = [stylesBarrel.badge]
 
-                    switch (item.status.status) {
-                        case 'success':
-                            rootClasses.push(stylesBarrel.success)
-                            break;
-                        case 'processing':
-                            rootClasses.push(stylesBarrel.processing)
-                            break;
-                        case 'error':
-                            rootClasses.push(stylesBarrel.error)
-                            break;
-                    }
+                        switch (item.status.status) {
+                            case 'success':
+                                rootClasses.push(stylesBarrel.success)
+                                break;
+                            case 'processing':
+                                rootClasses.push(stylesBarrel.processing)
+                                break;
+                            case 'error':
+                                rootClasses.push(stylesBarrel.error)
+                                break;
+                        }
 
-                    return (
-                        <div id={item.id} data-key={'item'} className={styles.item}>
-                            <Card
-                                style={{ width: '100%' }}
+                        return (
+                            <div id={item.id} data-key={'item'} className={styles.item}>
+                                <Card
+                                    style={{ width: '100%' }}
 
-                                actions={[
-                                    <SettingOutlined key="setting" />,
-                                    <EditOutlined key="edit" />,
-                                    <EllipsisOutlined id={item.id} onClick={openItem} key="ellipsis" />,
-                                ]}
-                            >
-                                <Meta
-                                    avatar={<Avatar src={item.imgUrl} />}
-                                    title={item.name + '  #' +item.batchNumber}
-                                    description={
-                                        <div style={{display:'flex', alignItems: 'center', gap: 14}}>
-                                            <Badge className={rootClasses.join(' ')}  status={item.status.status} text={item.status.label} />
-                                            {item.mixingDate}
-                                        </div>
-                                    }
-                                />
-                            </Card>
-                        </div>
-                    )
-                })
-                :
-                <div>
-                    <Skeleton  active='true'/>
-                </div>
-            }
+                                    actions={[
+                                        <SettingOutlined key="setting" />,
+                                        <EditOutlined key="edit" />,
+                                        <EllipsisOutlined id={item.id} onClick={openItem} key="ellipsis" />,
+                                    ]}
+                                >
+                                    <Meta
+                                        avatar={<Avatar src={item.imgUrl} />}
+                                        title={item.name + '  #' +item.batchNumber}
+                                        description={
+                                            <div style={{display:'flex', alignItems: 'center', gap: 14}}>
+                                                <Badge className={rootClasses.join(' ')}  status={item.status.status} text={item.status.label} />
+                                                {item.mixingDate}
+                                            </div>
+                                        }
+                                    />
+                                </Card>
+                            </div>
+                        )
+                    })
+                    :
+                    <div>
+                        <Skeleton  active='true'/>
+                    </div>
+                }
+            </div>
         </div>
     );
 };

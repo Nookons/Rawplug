@@ -3,24 +3,6 @@ import {db} from "../firebase";
 import {useObject} from "react-firebase-hooks/database";
 import {useState} from "react";
 
-export function writeMyUserData({data}) {
-    const id = Date.now();
-
-    // Extract the 'value' property from each object using map
-    const values = data.map(e => e);
-
-    try {
-        // Set the values to the database
-        set(ref(db, 'Notes/MyNotes ' + id), {
-            values: values
-        });
-
-        return true
-    } catch (e) {
-        console.error(e)
-    }
-}
-
 export function writeUserData({ data }) {
     const id = Date.now();
     const db = getDatabase();

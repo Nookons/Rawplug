@@ -1,0 +1,9 @@
+.Cascader {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-family: 'Gabarito', cursive;
+}
+.Cascader > div{
+    flex-wrap: wrap !important;
+}
