@@ -57,7 +57,7 @@ const AddItem = () => {
             title: 'Write batch N',
             content: <Input
                 style={{marginTop: 14}}
-                autoFocus={'false'}
+                focus={'all'}
                 addonBefore="Batch N"
                 addonAfter="Last: 19342"
                 defaultValue="19343"
