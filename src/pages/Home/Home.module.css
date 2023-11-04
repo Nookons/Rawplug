@@ -18,6 +18,14 @@
     flex-direction: column;
     gap: 8px;
 }
+
+.BannerText > h1{
+    font-size: clamp(16px, 4vw, 34px);
+}
+.BannerText > h4{
+    font-size: clamp(12px, 4vw, 24px);
+}
+
 .BannerButton{
     margin-top: 14px;
     display: flex;
