@@ -59,14 +59,14 @@ const ItemPage = () => {
     }
 
     const itemOptions = [
-        item && item.status ? { key: '8', label: 'Status', children: <Badge className={rootClasses.join(' ')} status={item.status.status} text={item.status.label}/>, span: 3}: { key: '7', label: 'Batch N', children: 'Unknown' },
-        item && item.name ? { key: '2', label: 'Name', children: item.name } : { key: '7', label: 'Batch N', children: 'Unknown' },
-        item && item.type ? { key: '3', label: 'Type', children: item.type } : { key: '7', label: 'Batch N', children: 'Unknown' },
-        item && item.date ? { key: '3', label: 'Date', children: item.date } : { key: '7', label: 'Batch N', children: 'Unknown' },
-        item && item.changeDate ? { key: '5', label: 'Last change', children: item.changeDate, span: 2 } : { key: '7', label: 'Batch N', children: 'Unknown' },
-        item && item.mixingDate ? { key: '6', label: 'Mixing Date', children: item.mixingDate } : { key: '7', label: 'Batch N', children: 'Unknown' },
+        item && item.status ? { key: '8', label: 'Status', children: <Badge className={rootClasses.join(' ')} status={item.status.status} text={item.status.label}/>, span: 3}: { key: '7', label: 'Status', children: 'Unknown' },
+        item && item.name ? { key: '2', label: 'Name', children: item.name } : { key: '7', label: 'Name', children: 'Unknown' },
+        item && item.type ? { key: '3', label: 'Type', children: item.type } : { key: '7', label: 'Type', children: 'Unknown' },
+        item && item.date ? { key: '3', label: 'Date', children: item.date } : { key: '7', label: 'Date', children: 'Unknown' },
+        item && item.changeDate ? { key: '5', label: 'Last change', children: item.changeDate, span: 2 } : { key: '7', label: 'Last change', children: 'Unknown' },
+        item && item.mixingDate ? { key: '6', label: 'Mixing Date', children: item.mixingDate } : { key: '7', label: 'Mixing Date', children: 'Unknown' },
         item && item.batchNumber ? { key: '7', label: 'Batch N', children: item.batchNumber } : { key: '7', label: 'Batch N', children: 'Unknown' },
-        item && item.location ? { key: '7', label: 'Location', children: item.location } : { key: '7', label: 'Batch N', children: 'Unknown' },
+        item && item.location ? { key: '7', label: 'Location', children: item.location } : { key: '7', label: 'Location', children: 'Unknown' },
     ].filter(option => option !== null); // Удаляем нулевые значения из массива
 
     // ...
@@ -100,7 +100,7 @@ const ItemPage = () => {
                     <div key={item.id}>
                         <picture style={{display: 'flex', justifyContent: 'center', flexWrap: 'wrap'}}>
                             <source style={{maxWidth: '100%'}} srcSet={item.imgUrl} media="(min-width: 800px)" />
-                            <img style={{maxWidth: '100%'}} src={item.imgUrl} alt="Description of the image" />
+                            <img style={{maxWidth: '100%'}} src={item.imgUrl} alt={!item ? 'Description of the image' : 'Cant load image'} />
                         </picture>
                     </div>
                     <Descriptions className={styles.itemOnPage} title='' bordered items={itemOptions}/>
