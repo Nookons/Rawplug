@@ -51,12 +51,13 @@ const AddItem = () => {
         },
         {
             title: 'Select mixing date',
-            content: <DatePicker style={{width: '100%', margin: '14px 0'}} onChange={onChangeDate}/>,
+            content: <DatePicker autoFocus={'false'} style={{width: '100%', margin: '14px 0'}} onChange={onChangeDate}/>,
         },
         {
             title: 'Write batch N',
             content: <Input
                 style={{marginTop: 14}}
+                autoFocus={'false'}
                 addonBefore="Batch N"
                 addonAfter="Last: 19342"
                 defaultValue="19343"
