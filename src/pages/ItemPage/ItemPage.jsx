@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {getItem, removeItem, updateUserData} from "../../utils/DataBase";
 import MyButton from "../../components/MyButton/MyButton";
-import {Badge, Descriptions} from "antd";
+import {Badge, Breadcrumb, Descriptions} from "antd";
 import styles from "../../components/BarrelList/BarrelList.module.css";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {ApartmentOutlined, DeleteOutlined, EditOutlined, HomeOutlined, UserOutlined} from "@ant-design/icons";
+import {Skeleton} from "antd/lib";
 
 const ItemPage = () => {
     const currentUrl = window.location.href;
@@ -58,7 +59,6 @@ const ItemPage = () => {
     }
 
     const itemOptions = [
-        item && item.id ? { key: '1', label: 'ID', children: item.id, span: 3 } : { key: '7', label: 'Batch N', children: 'Unknown' },
         item && item.status ? { key: '8', label: 'Status', children: <Badge className={rootClasses.join(' ')} status={item.status.status} text={item.status.label}/>, span: 3}: { key: '7', label: 'Batch N', children: 'Unknown' },
         item && item.name ? { key: '2', label: 'Name', children: item.name } : { key: '7', label: 'Batch N', children: 'Unknown' },
         item && item.type ? { key: '3', label: 'Type', children: item.type } : { key: '7', label: 'Batch N', children: 'Unknown' },
@@ -73,6 +73,27 @@ const ItemPage = () => {
 
     return (
         <div>
+            <Breadcrumb
+                style={{padding: 14}}
+                items={[
+                    {
+                        href: '/',
+                        title: <HomeOutlined />,
+                    },
+                    {
+                        href: '/',
+                        title: (
+                            <>
+                                <ApartmentOutlined />
+                                <span>Items List</span>
+                            </>
+                        ),
+                    },
+                    {
+                        title: item && item.id ? item.id : <Skeleton.Button active='true' size='small' shape='default' block='true' />,
+                    },
+                ]}
+            />
             {item
                 ?
                 <div style={{display: 'flex', justifyContent: 'flex-end', flexWrap: 'wrap'}}>
@@ -97,8 +118,8 @@ const ItemPage = () => {
                     </div>
                 </div>
                 :
-                <div>
-                    loading...
+                <div style={{padding: 14}}>
+                    <Skeleton />
                 </div>
             }
         </div>
