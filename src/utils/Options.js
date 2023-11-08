@@ -59,14 +59,6 @@ export const options = [
             },
         ],
     },
-    {
-        value: 'NOZ',
-        label: 'NOZ',
-    },
-    {
-        value: 'PALLET',
-        label: 'PALLET',
-    }
 ];
 
 export const location = [
