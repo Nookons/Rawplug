@@ -1,5 +1,5 @@
 .Main {
-    min-height: calc(100dvh - 78px - 121px);
+    min-height: calc(100dvh - 78px - 77px);
     display: flex;
     flex-direction: column;
     padding: 14px;

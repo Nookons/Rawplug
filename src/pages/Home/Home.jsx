@@ -1,13 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import styles from './Home.module.css'
 import MyButton from "../../components/MyButton/MyButton";
-import {Tabs} from "antd";
+import {
+    Avatar, DatePicker, Form, Input,
+    InputNumber, Mentions,
+    Modal,
+    Pagination,
+    Popconfirm,
+    Progress, Rate,
+    Result,
+    Segmented,
+    Skeleton, Slider,
+    Spin, Switch,
+    Tabs, Upload
+} from "antd";
 import MyModal from "../../components/MyModal/MyModal";
 import {writeUserData} from "../../utils/DataBase";
-import {FileAddOutlined, SearchOutlined} from "@ant-design/icons";
+import {
+    FileAddOutlined,
+    LoadingOutlined,
+    PlusOutlined,
+    QuestionCircleOutlined,
+    SearchOutlined
+} from "@ant-design/icons";
 import AddItem from "../../components/AddItem/AddItem";
 import BarrelPreview from "../../components/HomePreview/Barrel/BarrelPreview";
 import {Link} from "react-router-dom";
+import Button from "antd/es/button";
+import Checkbox from "antd/es/checkbox/Checkbox";
+import TextArea from "antd/es/input/TextArea";
+import Text from "antd/es/typography/Text";
+import Title from "antd/es/typography/Title";
+import {ExampleLoaderComponent} from "../../dev/palette";
 
 
 const Home = () => {

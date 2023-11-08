@@ -51,7 +51,8 @@ const AddItem = () => {
         },
         {
             title: 'Select mixing date',
-            content: <DatePicker autoFocus={'false'} style={{width: '100%', margin: '14px 0'}} onChange={onChangeDate}/>,
+            content: <DatePicker autoFocus={false} style={{width: '100%', margin: '14px 0'}}
+                                 onChange={onChangeDate}/>,
         },
         {
             title: 'Write batch N',
@@ -112,8 +113,8 @@ const AddItem = () => {
 
     const handleAddItem = async () => {
         const itemData = {
-            name: type ? type[2] : 'Unknown',
-            type: type ? type[0] : 'Unknown',
+            name: type[2] ? type[2] : 'Unknown',
+            type: type[0] ? type[0] : 'Unknown',
             mixingDate: mixingDate || 'Unknown',
             batchNumber: batchNumber || 'Unknown',
             location: currentLocation ? currentLocation.join('-') : 'Unknown',
@@ -122,25 +123,20 @@ const AddItem = () => {
                 label: getStatusLabel(status),
             }
         };
-
-        const response = await writeUserData({ data: itemData });
+        console.log(itemData)
+        const response = await writeUserData({data: itemData});
         if (response) {
             message.success('Item was added!')
             setCurrent(0)
-            setTimeout(() => {
-                window.history.back();
-            }, 1500)
-        }else {
+            window.history.back();
+        } else {
             message.error('Something wrong!')
         }
     };
 
     const items = steps.map((item) => ({key: item.title, title: item.title}));
     return (
-        <div style={{
-            margin: '0 auto',
-            padding: '4vh'
-        }}>
+        <div className={styles.Main}>
             <br/>
             <Steps current={current} items={items}/>
             <br/>
