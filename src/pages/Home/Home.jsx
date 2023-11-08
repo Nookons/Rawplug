@@ -1,21 +1,21 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import styles from './Home.module.css'
 import MyButton from "../../components/MyButton/MyButton";
 import {
-    Avatar, DatePicker, Form, Input,
-    InputNumber, Mentions,
+    Alert,
+    Avatar, Calendar, Card, Cascader, DatePicker, Form, Input,
+    InputNumber, Mentions, message,
     Modal,
     Pagination,
     Popconfirm,
     Progress, Rate,
     Result,
-    Segmented,
+    Segmented, Select,
     Skeleton, Slider,
     Spin, Switch,
     Tabs, Upload
 } from "antd";
 import MyModal from "../../components/MyModal/MyModal";
-import {writeUserData} from "../../utils/DataBase";
 import {
     FileAddOutlined,
     LoadingOutlined,
@@ -23,25 +23,29 @@ import {
     QuestionCircleOutlined,
     SearchOutlined
 } from "@ant-design/icons";
-import AddItem from "../../components/AddItem/AddItem";
 import BarrelPreview from "../../components/HomePreview/Barrel/BarrelPreview";
 import {Link} from "react-router-dom";
+import {options} from "../../utils/Options";
+import cascadeStyle from '../../pages/AddItem/AddItem.module.css'
+import {useListVals} from "react-firebase-hooks/database";
+import {ref} from "firebase/database";
+import {db} from "../../firebase";
 import Button from "antd/es/button";
-import Checkbox from "antd/es/checkbox/Checkbox";
-import TextArea from "antd/es/input/TextArea";
-import Text from "antd/es/typography/Text";
 import Title from "antd/es/typography/Title";
-import {ExampleLoaderComponent} from "../../dev/palette";
+import Text from "antd/es/typography/Text";
 
 
 const Home = () => {
     const [visible, setVisible] = useState(false);
+    const [data, loading, error] = useListVals(ref(db, 'main/items/Barrel'));
+    const [isSearch, setIsSearch] = useState(false);
+    const [searchData, setSearchData] = useState([]);
 
     const items = [
         {
             key: '1',
             label: 'Barrel',
-            children: <BarrelPreview />,
+            children: <BarrelPreview  data={isSearch ? searchData : data} loading={loading}/>,
         },
         {
             key: '2',
@@ -59,13 +63,35 @@ const Home = () => {
         setVisible(true)
     }
 
+    const onChangeCascade = (e) => {
+        const index = e.length;
+        const currentName = e[index - 1].toString().toLowerCase();
+        setIsSearch(true)
+
+        if (!loading) {
+            const sort = data.filter(element => {
+                const elementNameLower = element.name.toLowerCase();
+                const matches = elementNameLower === currentName;
+                console.log(`Element: ${element.name}, Current Name: ${currentName}, Matches: ${matches}`);
+                return matches
+            });
+            message.success(`${currentName.toUpperCase()}`);
+            setSearchData(sort)
+            setVisible(false)
+        }
+    }
+
+    const onRemoveSearch = useCallback((event) => {
+        setIsSearch(false)
+    }, []);
+
     return (
         <div className={styles.Main}>
-
             <MyModal
                 visible={visible}
                 setVisible={setVisible}
             >
+                <Cascader.Panel className={cascadeStyle.Cascader} options={options} onChange={onChangeCascade}/>
             </MyModal>
 
             <div className={styles.Banner}>
@@ -79,6 +105,7 @@ const Home = () => {
                     <MyButton>Download PDF Report</MyButton>
                 </div>
             </div>
+            { isSearch ? <Button type="primary" onClick={onRemoveSearch}>Remove search</Button> : <div> </div>}
             <Tabs
                 defaultActiveKey="1"
                 items={items}
