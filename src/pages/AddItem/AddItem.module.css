@@ -1,3 +1,8 @@
+.Main {
+    padding: 4vw;
+    min-height: calc(100dvh - 78px - 77px);
+}
+
 .Cascader {
     width: 100%;
     padding: 14px;

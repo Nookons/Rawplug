@@ -58,6 +58,14 @@ export const options = [
                 ]
             },
         ],
+    },
+    {
+        value: 'NOZ',
+        label: 'NOZ',
+    },
+    {
+        value: 'PALLET',
+        label: 'PALLET',
     }
 ];
 
@@ -99,15 +107,7 @@ export const location = [
                     {
                         value: '3',
                         label: '3'
-                    },
-                    {
-                        value: '4',
-                        label: '4'
-                    },
-                    {
-                        value: '5',
-                        label: '5'
-                    },
+                    }
                 ]
             },
             {
@@ -125,35 +125,9 @@ export const location = [
                     {
                         value: '3',
                         label: '3'
-                    },
-                    {
-                        value: '4',
-                        label: '4'
-                    },
+                    }
                 ]
-            },
-            {
-                value: '4',
-                label: '4',
-                children: [
-                    {
-                        value: '1',
-                        label: '1'
-                    },
-                    {
-                        value: '2',
-                        label: '2'
-                    },
-                    {
-                        value: '3',
-                        label: '3'
-                    },
-                    {
-                        value: '4',
-                        label: '4'
-                    },
-                ]
-            },
+            }
         ],
     },
     {
@@ -180,99 +154,9 @@ export const location = [
                         value: '4',
                         label: '4'
                     },
-                ]
-            },
-            {
-                value: '2',
-                label: '2',
-                children: [
                     {
-                        value: '1',
-                        label: '1'
-                    },
-                    {
-                        value: '2',
-                        label: '2'
-                    },
-                    {
-                        value: '3',
-                        label: '3'
-                    },
-                    {
-                        value: '4',
-                        label: '4'
-                    },
-                ]
-            },
-            {
-                value: '3',
-                label: '3',
-                children: [
-                    {
-                        value: '1',
-                        label: '1'
-                    },
-                    {
-                        value: '2',
-                        label: '2'
-                    },
-                    {
-                        value: '3',
-                        label: '3'
-                    },
-                    {
-                        value: '4',
-                        label: '4'
-                    },
-                ]
-            },
-            {
-                value: '4',
-                label: '4',
-                children: [
-                    {
-                        value: '1',
-                        label: '1'
-                    },
-                    {
-                        value: '2',
-                        label: '2'
-                    },
-                    {
-                        value: '3',
-                        label: '3'
-                    },
-                    {
-                        value: '4',
-                        label: '4'
-                    },
-                ]
-            },
-        ],
-    },
-    {
-        value: 'C',
-        label: 'C',
-        children: [
-            {
-                value: '1',
-                label: '1',
-                children: [
-                    {
-                        value: '1',
-                        label: '1'
-                    },
-                    {
-                        value: '2',
-                        label: '2'
-                    },
-                    {
-                        value: '3',
-                        label: '3'
-                    },
-                    {
-                        value: '4',
-                        label: '4'
+                        value: '5',
+                        label: '5'
                     },
                 ]
             },
@@ -296,6 +180,10 @@ export const location = [
                         value: '4',
                         label: '4'
                     },
+                    {
+                        value: '5',
+                        label: '5'
+                    }
                 ]
             },
             {
@@ -318,6 +206,10 @@ export const location = [
                         value: '4',
                         label: '4'
                     },
+                    {
+                        value: '5',
+                        label: '5'
+                    }
                 ]
             },
             {
@@ -340,8 +232,38 @@ export const location = [
                         value: '4',
                         label: '4'
                     },
+                    {
+                        value: '5',
+                        label: '5'
+                    }
                 ]
             },
+            {
+                value: '5',
+                label: '5',
+                children: [
+                    {
+                        value: '1',
+                        label: '1'
+                    },
+                    {
+                        value: '2',
+                        label: '2'
+                    },
+                    {
+                        value: '3',
+                        label: '3'
+                    },
+                    {
+                        value: '4',
+                        label: '4'
+                    },
+                    {
+                        value: '5',
+                        label: '5'
+                    }
+                ]
+            }
         ],
-    },
+    }
 ];

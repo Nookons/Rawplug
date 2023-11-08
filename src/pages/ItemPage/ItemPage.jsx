@@ -3,6 +3,7 @@ import {getItem, removeItem, updateUserData} from "../../utils/DataBase";
 import MyButton from "../../components/MyButton/MyButton";
 import {Badge, Breadcrumb, Descriptions} from "antd";
 import styles from "../../components/BarrelList/BarrelList.module.css";
+import cl from './ItemPage.module.css'
 import {ApartmentOutlined, DeleteOutlined, EditOutlined, HomeOutlined, UserOutlined} from "@ant-design/icons";
 import {Skeleton} from "antd/lib";
 
@@ -72,7 +73,7 @@ const ItemPage = () => {
     // ...
 
     return (
-        <div>
+        <div className={cl.Main}>
             <Breadcrumb
                 style={{padding: 14}}
                 items={[

@@ -50,11 +50,13 @@ const BarrelPreview = () => {
 
     const formatter = (value) => <CountUp end={value} separator="," />;
 
+    const dataDateSort = data.sort((a, b) => new Date(b.mixingDate) - new Date(a.mixingDate));
+
     return (
         <div>
             <List
                 itemLayout="horizontal"
-                dataSource={data}
+                dataSource={dataDateSort}
                 renderItem={(item) => (
 
                     <List.Item
