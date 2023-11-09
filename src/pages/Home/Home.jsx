@@ -75,13 +75,14 @@ const Home = () => {
                 console.log(`Element: ${element.name}, Current Name: ${currentName}, Matches: ${matches}`);
                 return matches
             });
-            message.success(`${currentName.toUpperCase()}`);
+            message.info(`Looking for :${currentName.toUpperCase()} `);
             setSearchData(sort)
             setVisible(false)
         }
     }
 
     const onRemoveSearch = useCallback((event) => {
+        message.info(`You see all now)`);
         setIsSearch(false)
     }, []);
 

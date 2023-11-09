@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Cascader, DatePicker, Input, message, Popover, Select, Steps, theme} from 'antd';
 import {location, options} from "../../utils/Options";
 import styles from './AddItem.module.css'
 import {InfoCircleOutlined} from "@ant-design/icons";
 import {writeUserData} from "../../utils/DataBase";
+import {useListVals} from "react-firebase-hooks/database";
+import {ref} from "firebase/database";
+import {db} from "../../firebase";
 
 const AddItem = () => {
     const {token} = theme.useToken();
@@ -13,6 +16,8 @@ const AddItem = () => {
     const [mixingDate, setMixingDate] = useState(null);
     const [currentLocation, setCurrentLocation] = useState(null);
     const [status, setStatus] = useState(null);
+    const [data, loading, error] = useListVals(ref(db, 'main/items/Barrel'));
+    const [lastNumber, setLastNumber] = useState(null);
 
     const onChangeCascade = (e) => {
         setCurrent(current + 1);
@@ -29,6 +34,27 @@ const AddItem = () => {
         setMixingDate(dateString)
         setCurrent(current + 1);
     };
+
+    useEffect(() => {
+        const allButch = []
+
+        function getLastButchNumber () {
+            if (data) {
+                data.forEach(e => {
+                    // Преобразовываем значение в число перед добавлением в массив
+                    console.log(e.batchNumber)
+                    allButch.push(parseInt(e.batchNumber, 10));
+                })
+            }
+
+            // Найдем самый большой номер в массиве
+            const largestNumber = Math.max.apply(null, allButch);
+            console.log(largestNumber)
+            setLastNumber(largestNumber);
+        }
+        getLastButchNumber();
+    }, [data]);
+
 
     const content = (
         <div>
@@ -60,9 +86,9 @@ const AddItem = () => {
                 style={{marginTop: 14}}
                 focus={'all'}
                 addonBefore="Batch N"
-                addonAfter="Last: 19342"
-                defaultValue="19343"
-                value={batchNumber}
+                addonAfter={lastNumber ? lastNumber : 'Last: unknown'}
+                defaultValue={lastNumber ? lastNumber + 1 : 'something go wrong'}
+                value={lastNumber ? lastNumber + 1 : batchNumber}
                 onChange={e => setBatchNumber(e.target.value)}
             />,
         },
@@ -112,11 +138,15 @@ const AddItem = () => {
     };
 
     const handleAddItem = async () => {
+        if (batchNumber === 'Unknown') {
+
+        }
+
         const itemData = {
             name: type[2] ? type[2] : 'Unknown',
             type: type[0] ? type[0] : 'Unknown',
             mixingDate: mixingDate || 'Unknown',
-            batchNumber: batchNumber || 'Unknown',
+            batchNumber: batchNumber ? batchNumber : lastNumber + 1,
             location: currentLocation ? currentLocation.join('-') : 'Unknown',
             status: {
                 status: status || 'Unknown',
@@ -125,6 +155,7 @@ const AddItem = () => {
         };
         console.log(itemData)
         const response = await writeUserData({data: itemData});
+        console.log(response)
         if (response) {
             message.success('Item was added!')
             setCurrent(0)
