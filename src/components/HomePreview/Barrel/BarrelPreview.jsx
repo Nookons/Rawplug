@@ -1,27 +1,13 @@
 import React, {useCallback, useState} from 'react';
-import {useListVals} from "react-firebase-hooks/database";
-import {ref} from "firebase/database";
-import {db} from "../../../firebase";
 import styles from './BarrelPreview.module.css'
 import {
     Avatar,
     Badge,
-    Button,
-    Card,
-    Divider,
-    Form,
     List,
     message,
-    Radio,
     Skeleton,
-    Space,
-    Statistic,
-    Switch
 } from 'antd';
 import {DeleteOutlined, EditOutlined, EllipsisOutlined, MoreOutlined, SettingOutlined} from "@ant-design/icons";
-import Meta from "antd/es/card/Meta";
-import stylesBarrel from '../../BarrelList/BarrelList.module.css'
-import CountUp from 'react-countup';
 import {removeItem} from "../../../utils/DataBase";
 
 const BarrelPreview = ({data, loading}) => {
@@ -50,7 +36,7 @@ const BarrelPreview = ({data, loading}) => {
     const dataDateSort = data.sort((a, b) => new Date(b.mixingDate) - new Date(a.mixingDate));
 
     return (
-        <div>
+        <div className={styles.Main}>
             <List
                 itemLayout="horizontal"
                 dataSource={dataDateSort}
