@@ -1,12 +1,12 @@
 import {getDatabase, ref, set, push, onValue, remove, update, child} from "firebase/database";
 import {db} from "../firebase";
-import {useObject} from "react-firebase-hooks/database";
-import {useState} from "react";
 
 export function writeUserData({ data }) {
     const id = Date.now();
     const db = getDatabase();
     const currentDate = new Date();
+
+    console.log(data)
 
     const barrelTemplate = {
         id: id,
@@ -16,7 +16,7 @@ export function writeUserData({ data }) {
         name: data ? data.name : 'Unknown',
         type: data ? data.type : 'Unknown',
         location: data ? data.location : 'Unknown',
-        batchNumber: data ? data.batchNumber : 'Unknown',
+        batchNumber: data ? data.batchNumber.toString() : 'Unknown',
         imgUrl: 'https://atlas-content-cdn.pixelsquid.com/stock-images/metal-barrel-steel-y1ME6PC-600.jpg',
         status: {
             label: data ? data.status.label : 'Unknown',
@@ -89,13 +89,13 @@ export function getItem({id}) {
 }
 
 export function removeItem({id}) {
-    const starCountRef = ref(db, 'main/items/Barrel/' + id);
+    const path = ref(db, 'main/items/Barrel/' + id);
 
     return new Promise((resolve, reject) => {
-        remove(starCountRef).then(() => {
-            resolve('Запись успешно удалена');
+        remove(path).then(() => {
+            resolve(true);
         }).catch((error) => {
-            reject(error);
+            reject([false, error]);
         });
     });
 }
