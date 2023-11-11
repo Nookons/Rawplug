@@ -21,7 +21,8 @@ const Navbar = () => {
                 <a></a>
             </div>
             <div className={burger ? styles.NavBarBurger : styles.NavBar}>
-                <MyButton><Link to="/">Home</Link></MyButton>
+                <MyButton><Link onClick={() => setBurger(false)} to="/">Home</Link></MyButton>
+                <MyButton><Link onClick={() => setBurger(false)} to="/pick-dep">Departments</Link></MyButton>
                {/* <MyButton><Link to="/store">Warehouse</Link></MyButton>*/}
             </div>
         </div>

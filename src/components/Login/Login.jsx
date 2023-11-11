@@ -40,6 +40,11 @@ const Login = ({setUser}) => {
         }
     }
 
+    async function userSignInRemember() {
+        setUser(true);
+    }
+
+
     const local = localStorage.getItem('remember');
 
     useEffect(() => {
@@ -47,6 +52,10 @@ const Login = ({setUser}) => {
             setRemember(true);
             setNickName('admintest');
             setPassword('admintest');
+
+            setTimeout(() => {
+                userSignInRemember();
+            }, 500)
         }
     }, [local]);
 
@@ -60,19 +69,19 @@ const Login = ({setUser}) => {
             padding: '10vh'
         }}>
             <Title level={4}>Login page...</Title>
-                <Input
-                    value={nickName}
-                    onChange={e => setNickName(e.target.value)}
-                    placeholder="Enter your username"
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    suffix={
-                        <Tooltip title="Your team leader will provide you with a nickname and password.">
-                            <InfoCircleOutlined style={{ color: 'rgba(0,0,0,.45)' }} />
-                        </Tooltip>
-                    }
-                />
-                <Input.Password value={password} onChange={e => setPassword(e.target.value)} placeholder="Input password" />
-                <Checkbox checked={remember} onChange={e => setRemember(e.target.checked) }>Remember me</Checkbox>
+            <Input
+                value={nickName}
+                onChange={e => setNickName(e.target.value)}
+                placeholder="Enter your username"
+                prefix={<UserOutlined className="site-form-item-icon"/>}
+                suffix={
+                    <Tooltip title="Your team leader will provide you with a nickname and password.">
+                        <InfoCircleOutlined style={{color: 'rgba(0,0,0,.45)'}}/>
+                    </Tooltip>
+                }
+            />
+            <Input.Password value={password} onChange={e => setPassword(e.target.value)} placeholder="Input password"/>
+            <Checkbox checked={remember} onChange={e => setRemember(e.target.checked)}>Remember me</Checkbox>
             <Button onClick={userSignIn} type="primary">Sign in</Button>
         </div>
     );

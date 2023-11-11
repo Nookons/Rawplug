@@ -1,6 +1,6 @@
 import React from 'react';
-import {Route, Routes, Outlet} from 'react-router-dom'
-import {privateRoutes, publicRoutes, userRoutes} from "../routes";
+import {Route, Routes} from 'react-router-dom'
+import {departmentRoutes, publicRoutes} from "../routes";
 
 const AppRouter = () => {
 
@@ -8,6 +8,9 @@ const AppRouter = () => {
         <Routes>
             {publicRoutes.map( ({path, Component}, index) =>
                 <Route key={index} path={path} Component={Component} exact={true}/>
+            )}
+            {departmentRoutes.map( ({path, Component}, index) =>
+                <Route key={index} path={path} Component={Component} exact={true} />
             )}
         </Routes>
     )

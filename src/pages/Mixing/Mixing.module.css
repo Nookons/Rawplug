@@ -1,0 +1,65 @@
+.Main {
+    min-height: calc(100dvh - 156px);
+    padding: 50px;
+}
+
+.Parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-column-gap: 14px;
+    grid-row-gap: 14px;
+}
+
+.AllChild {
+    border: 1px dashed #939393;
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: .3s all ease-in-out;
+}
+.AllChild:hover{
+    border: 1px dashed transparent;
+    box-shadow:  5px 5px 15px rgba(0,0,0, 0.25);
+}
+
+.AllChild > div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 14px;
+}
+.AllChild > h4{
+    margin: 0 !important;
+}
+
+.TodaysView {
+    grid-area: 1 / 1 / 4 / 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.MixingView {
+    grid-area: 1 / 2 / 2 / 3;
+}
+.RecipesView {
+    grid-area: 2 / 2 / 3 / 3;
+}
+.ExtractView {
+    grid-area: 3 / 2 / 4 / 3;
+}
+
+@media screen and (max-width: 900px) {
+    .Parent {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Main {
+        padding: 14px;
+    }
+}
