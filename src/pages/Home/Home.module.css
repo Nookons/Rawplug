@@ -1,15 +1,60 @@
 .Main {
     min-height: calc(100dvh - 78px - 77px);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
     padding: 14px;
     max-width: calc(100vw - 130px);
     margin: 0 auto;
 }
 
+.Card {
+    cursor: pointer;
+    box-shadow: 0 0 5px rgb(0,0,0, 0.05);
+    transition: all .3s ease-in-out;
+}
+.Card:hover{
+    //background-color: #eaeaea;
+    box-shadow: 5px 5px 15px rgb(0,0,0, .15);
+}
+
+.cardWrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.cardWrapper > div > div {
+    max-width: 600px;
+}
+.MainTimeLine {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.TimeLine {
+    min-width: 350px;
+    white-space: nowrap;
+    padding: 1vw;
+    border-radius: 14px;
+}
+.TimeLine > ul{
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
 @media screen and (max-width: 900px) {
     .Main {
         max-width: calc(100vw - 5px);
+        flex-direction: column;
+    }
+
+    .cardWrapper {
+        flex-direction: column;
     }
 }
 

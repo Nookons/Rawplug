@@ -259,3 +259,26 @@ export const location = [
         ],
     }
 ];
+
+export const Departments = [
+    {
+        label: 'Mixing Department',
+        description: 'Product Mixing and Barrel Filling Department',
+        imgUrl: 'https://plus.unsplash.com/premium_photo-1682360983344-877be473ca3e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+        label: 'Leaders Department',
+        description: 'A department with leaders',
+        imgUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+        label: 'Productions Department',
+        description: 'Finished Goods Production and Palletizing Department',
+        imgUrl: 'https://images.unsplash.com/photo-1610891015188-5369212db097?q=80&w=2129&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+        label: 'QC Department',
+        description: 'Product and material quality assurance department. ',
+        imgUrl: 'https://plus.unsplash.com/premium_photo-1667509322957-9c4649741ee3?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+]
