@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import styles from './Mixing.module.css'
 import Button from "antd/es/button";
 import Text from "antd/es/typography/Text";
@@ -6,9 +6,13 @@ import Title from "antd/es/typography/Title";
 import {Timeline} from "antd";
 import {CheckCircleOutlined, ClockCircleOutlined, LoadingOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
+import TodayTimeline from "./depends/TodayTimeline";
+import {useNavigate} from "react-router-dom";
 
 const Mixing = () => {
     const [now, setNow] = useState();
+
+    const navigate = useNavigate();
 
     setTimeout(() => {
         const currentDate = dayjs().toString()
@@ -16,6 +20,9 @@ const Mixing = () => {
     }, 1000)
 
 
+    const onStartMixing = useCallback((event) => {
+        navigate('/pick-dep/mixing-dep/add-mixing')
+    }, []);
 
     return (
         <div className={styles.Main}>
@@ -27,44 +34,15 @@ const Mixing = () => {
                 <div className={styles.TodaysView + ' ' + styles.AllChild}>
                     <Title level={2}>Today tasks</Title>
                     <div>
-                        <Timeline mode="alternate" style={{padding: 0}}>
-                            <Timeline.Item>Add PSF-FR</Timeline.Item>
-                            <Timeline.Item
-                                dot={<ClockCircleOutlined style={{fontSize: "16px"}}/>}
-                                color="red"
-                            >
-                                The mixing PSF-HSH has started
-                                <Text type="secondary"> 09:24</Text>
-                            </Timeline.Item>
-                            <Timeline.Item
-                                dot={<ClockCircleOutlined style={{fontSize: "16px"}}/>}
-                                color="red"
-                            >
-                                The mixing PSF-HSH has started
-                                <Text type="secondary"> 09:37</Text>
-                            </Timeline.Item>
-                            <Timeline.Item
-                                dot={<CheckCircleOutlined style={{fontSize: "16px"}}/>}
-                                color="green"
-                            >
-                                The mixing PSF-HSH finished
-                                <Text type="secondary"> 12:05</Text>
-                            </Timeline.Item>
-                            <Timeline.Item
-                                dot={<LoadingOutlined style={{fontSize: "16px"}}/>}
-                                color="green"
-                            >
-                                Waiting for PSF-HSH will be finish
-                                <Text type="secondary"> 12:05</Text>
-                            </Timeline.Item>
-                        </Timeline>
+                        <TodayTimeline />
                     </div>
                 </div>
                 <div className={styles.MixingView + ' ' + styles.AllChild}>
                     <Title level={4}>Add mixing</Title>
                     <Text type="secondary">Field for adding or deleting completed mixing</Text>
                     <div>
-                        <Button type="primary">Add mixing</Button>
+                        <Button type="primary" onClick={onStartMixing}>Start mixing</Button>
+                        <Button type="primary">Finish mixing</Button>
                         <Button>Remove mixing</Button>
                     </div>
                 </div>

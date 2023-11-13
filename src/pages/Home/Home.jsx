@@ -106,61 +106,13 @@ const Home = () => {
             <div className={styles.MainTimeLine}>
                 <Title level={2}>Today's production</Title>
                 <div className={styles.TimeLine}>
-                    {data
-                        ?
-                        <Timeline mode="alternate">
-                            {data.map((e, index) => {
-                                const currentDate = new Date().toDateString();
-                                const itemDate = e.date
-
-                                if (currentDate === itemDate) {
-                                    return (
-                                        <Timeline.Item key={e.id} label={e.date} itemLayout="horizontal">
-                                            <Link onClick={onTimeLineClick} target="_blank">
-                                                {e.name}
-                                            </Link>
-                                        </Timeline.Item>
-                                    )
-                                }
-                            })}
-                        </Timeline>
-                        :
-                        <div>
-
-                        </div>
-                    }
+                    First time line
                 </div>
             </div>
             <div className={styles.MainTimeLine}>
                 <Title level={2}>Last production</Title>
                 <div className={styles.TimeLine}>
-                    {data
-                        ?
-                        <Timeline mode="alternate">
-                            {data.map((e, index) => {
-                                const currentDate = new Date().toDateString();
-                                const itemDate = e.date
-
-                                const data = []
-
-                                if (currentDate === itemDate) {
-                                    data.push(e)
-                                }
-                                console.log(data)
-                                return (
-                                    <Timeline.Item key={e.id} label={e.date} itemLayout="vertical">
-                                        <Link onClick={onTimeLineClick} target="_blank">
-                                            {e.name}
-                                        </Link>
-                                    </Timeline.Item>
-                                )
-                            })}
-                        </Timeline>
-                        :
-                        <div>
-
-                        </div>
-                    }
+                    Secondary time line
                 </div>
 
             </div>
