@@ -4,23 +4,19 @@ import Navbar from "./components/Navbar/Navbar";
 import AppRouter from "./components/AppRouter";
 import Footer from "./components/Footer/Footer";
 import Login from "./components/Login/Login";
+import {Provider} from "react-redux";
+import {store} from "./stores/store";
 
 const App = () => {
-    const [user, setUser] = useState(false);
 
     return (
-        <div>
-            {user
-                ?
-                <BrowserRouter>
-                    <Navbar/>
-                    <AppRouter/>
-                    <Footer/>
-                </BrowserRouter>
-                :
-                <Login setUser={setUser}/>
-            }
-        </div>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Navbar/>
+                <AppRouter/>
+                <Footer/>
+            </BrowserRouter>
+        </Provider>
     );
 };
 
