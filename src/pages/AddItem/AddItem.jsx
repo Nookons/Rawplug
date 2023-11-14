@@ -9,7 +9,6 @@ import {ref} from "firebase/database";
 import {db} from "../../firebase";
 
 const AddItem = () => {
-    const {token} = theme.useToken();
     const [current, setCurrent] = useState(0);
     const [type, setType] = useState(null);
     const [batchNumber, setBatchNumber] = useState(null);
