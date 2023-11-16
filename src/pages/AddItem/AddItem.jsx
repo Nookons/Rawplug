@@ -7,10 +7,15 @@ import {writeUserData} from "../../utils/DataBase";
 import {useListVals} from "react-firebase-hooks/database";
 import {ref} from "firebase/database";
 import {db} from "../../firebase";
+import {useSelector} from "react-redux";
 
 const AddItem = () => {
     const [current, setCurrent] = useState(0);
+    const barrel = useSelector(state => state.barrel.barrel)
+
     const [type, setType] = useState(null);
+    const [name, setName] = useState(null);
+
     const [batchNumber, setBatchNumber] = useState(null);
     const [mixingDate, setMixingDate] = useState(null);
     const [currentLocation, setCurrentLocation] = useState(null);
@@ -18,9 +23,13 @@ const AddItem = () => {
     const [data, loading, error] = useListVals(ref(db, 'main/items/Barrel'));
     const [lastNumber, setLastNumber] = useState(null);
 
-    const onChangeCascade = (e) => {
-        setCurrent(current + 1);
-        setType(e)
+    const onChangeCascade = (event) => {
+        const lastIndex = event.length - 1; // looking for last items at array
+
+        setType(event[0])
+        setName(event[lastIndex])
+
+        setCurrent(current + 1); // coming to next steps
     }
     const onChangeLocation = (e) => {
         setCurrent(current + 1);
@@ -38,21 +47,25 @@ const AddItem = () => {
         const allButch = []
 
         function getLastButchNumber () {
-            if (data) {
-                data.forEach(e => {
-                    // Преобразовываем значение в число перед добавлением в массив
-                    console.log(e.batchNumber)
-                    allButch.push(parseInt(e.batchNumber, 10));
-                })
+            if (barrel) {
+                if (barrel > 0) {
+                    barrel.forEach(e => {
+                        // Преобразовываем значение в число перед добавлением в массив
+                        console.log(e.batchNumber)
+                        allButch.push(parseInt(e.batchNumber, 10));
+                    })
+                }
+                else {
+                    setLastNumber(null)
+                }
             }
 
             // Найдем самый большой номер в массиве
             const largestNumber = Math.max.apply(null, allButch);
-            console.log(largestNumber)
             setLastNumber(largestNumber);
         }
         getLastButchNumber();
-    }, [data]);
+    }, [barrel]);
 
 
     const content = (
@@ -84,10 +97,11 @@ const AddItem = () => {
             content: <Input
                 style={{marginTop: 14}}
                 focus={'all'}
+                type={'number'}
                 addonBefore="Batch N"
                 addonAfter={lastNumber ? lastNumber : 'Last: unknown'}
                 defaultValue={lastNumber ? lastNumber + 1 : 'something go wrong'}
-                value={lastNumber ? lastNumber + 1 : batchNumber}
+                value={lastNumber === '-Infinity' ? lastNumber + 1 : batchNumber}
                 onChange={e => setBatchNumber(e.target.value)}
             />,
         },
@@ -136,14 +150,11 @@ const AddItem = () => {
         }
     };
 
-    const handleAddItem = async () => {
-        if (batchNumber === 'Unknown') {
-
-        }
+    const handleAddItem = async (event) => {
 
         const itemData = {
-            name: type[2] ? type[2] : 'Unknown',
-            type: type[0] ? type[0] : 'Unknown',
+            name: name ? name : 'Unknown',
+            type: type ? type : 'Unknown',
             mixingDate: mixingDate || 'Unknown',
             batchNumber: batchNumber ? batchNumber : lastNumber + 1,
             location: currentLocation ? currentLocation.join('-') : 'Unknown',
@@ -152,9 +163,10 @@ const AddItem = () => {
                 label: getStatusLabel(status),
             }
         };
+
         console.log(itemData)
         const response = await writeUserData({data: itemData});
-        console.log(response)
+
         if (response) {
             message.success('Item was added!')
             setCurrent(0)

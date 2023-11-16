@@ -14,8 +14,7 @@ const Navbar = () => {
     return (
         <div className={styles.Main}>
             <div className={styles.LogoPlace}>
-                <img src={logo} alt=""/>
-                <article>Rawplag</article>
+                <img src='https://www.vermontsales.co.za/images/brands/rawlplug_logo.svg' alt=""/>
             </div>
             <div className={burger ? styles.BurgerActive : styles.Burger} onClick={onBurgerClick}>
                 <a></a>

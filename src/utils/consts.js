@@ -7,3 +7,5 @@ export const SELECT_DEPARTMENT = '/pick-dep'
 // Department routes
 export const MIXING_DEPARTMENT = '/pick-dep/mixing-dep'
 export const ADD_MIXING = '/pick-dep/mixing-dep/add-mixing'
+export const WAREHOUSE_DEPARTMENT = '/pick-dep/warehouse'
+export const BARREL_ROUTE = '/pick-dep/warehouse/barrel'

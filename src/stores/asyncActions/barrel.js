@@ -1,9 +1,9 @@
 import {ref, get} from "firebase/database";
 import {db} from "../../firebase";
-import {addManyCustomersAction, removeBarrelAction} from "../barrelReducer";
+import {fetchBarrelAction} from "../barrelReducer";
 
-export const fetchUsers = () => {
-    const usersRef = ref(db, 'main/items/Barrel');
+export const fetchBarrel = () => {
+    const usersRef = ref(db, 'main/items/barrel');
 
     return function (dispatch) {
         get(usersRef)
@@ -12,8 +12,7 @@ export const fetchUsers = () => {
                 const data = snapshot.val();
                 const dataArray = Object.values(data);
 
-                dispatch(addManyCustomersAction(dataArray))
-                dispatch(removeBarrelAction(dataArray))
+                dispatch(fetchBarrelAction(dataArray))
             }
         })
             .catch((error) => {

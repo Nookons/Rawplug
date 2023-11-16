@@ -1,11 +1,11 @@
 import {
     ADD_ITEM,
-    ADD_MIXING,
+    ADD_MIXING, BARREL_ROUTE,
     HOME_ROUTE,
     ITEM_PAGE,
     MIXING_DEPARTMENT,
     SELECT_DEPARTMENT,
-    STORE_ROUTE
+    STORE_ROUTE, WAREHOUSE_DEPARTMENT
 } from "./utils/consts";
 import Home from "./pages/Home/Home";
 import WareHouse from "./pages/WareHouse/WareHouse"
@@ -14,6 +14,7 @@ import AddItem from "./pages/AddItem/AddItem";
 import SelectedDepartment from "./pages/SelectedDepartament/SelectedDepartament";
 import Mixing from "./pages/Mixing/Mixing";
 import AddMixing from "./pages/Mixing/depends/AddMixing";
+import BarrelWarehouse from "./pages/WareHouse/items/BarrelWarehouse";
 
 
 // Department routes
@@ -27,6 +28,16 @@ export const departmentRoutes = [
         path:ADD_MIXING,
         Component: AddMixing,
         label: 'Add mixing'
+    },
+    {
+        path:WAREHOUSE_DEPARTMENT,
+        Component: WareHouse,
+        label: 'WAREHOUSE_DEPARTMENT'
+    },
+    {
+        path:BARREL_ROUTE,
+        Component: BarrelWarehouse,
+        label: 'WAREHOUSE_DEPARTMENT'
     },
 ]
 

@@ -1,42 +1,57 @@
-import {getDatabase, ref, set, push, onValue, remove, update, child} from "firebase/database";
+import {getDatabase, ref, onValue, remove, update} from "firebase/database";
 import {db} from "../firebase";
 
-export function writeUserData({ data }) {
-    const id = Date.now();
-    const db = getDatabase();
-    const currentDate = new Date();
-
-    console.log(data)
-
-    const barrelTemplate = {
-        id: id,
-        date: data ? currentDate.toDateString() : 'Unknown',
-        mixingDate: data ?  data.mixingDate : 'Unknown',
-        changeDate: currentDate.toString(),
-        name: data ? data.name : 'Unknown',
-        type: data ? data.type : 'Unknown',
-        location: data ? data.location : 'Unknown',
-        batchNumber: data ? data.batchNumber.toString() : 'Unknown',
-        imgUrl: 'https://atlas-content-cdn.pixelsquid.com/stock-images/metal-barrel-steel-y1ME6PC-600.jpg',
-        status: {
-            label: data ? data.status.label : 'Unknown',
-            status: data ? data.status.status : 'Unknown'
-        }
-    };
+export function writeUserAction({data}) {
+    const template = {
+        id: data.id,
+        by: 'Kolomiiets Dmytro',
+        actionType: data.actionType,
+        timeStamp: data.timeStamp
+    }
 
     const updates = {};
-    updates['main/items/' + (data ? data.type + '/' : 'Barrel/') + id] = barrelTemplate;
+    const path = 'main/action/' + data.id;
+    updates[path] = template;
 
     return new Promise((resolve, reject) => {
         update(ref(db), updates)
-            .then(() => {
-                resolve(barrelTemplate);
-            })
-            .catch((error) => {
-                reject(error);
-            });
+            .then(() => resolve(template))
+            .catch((error) => reject(error));
     });
 }
+
+export function writeUserData({ data }) {
+    const id = Date.now();
+
+    const template = {
+        id: id,
+        date: '22-10-2023',
+        mixingDate: '14-10-2023',
+        timeStamp: data && data.timeStamp !== undefined ? data.timeStamp : 'Test',
+        name: data && data.name ? data.name : 'Test',
+        type: data && data.type ? data.type : 'Test',
+        location: data && data.location ? data.location : 'A-2-3 Test',
+        batchNumber: data && data.batchNumber ? data.batchNumber : '19233 Test',
+        imgUrl: 'https://atlas-content-cdn.pixelsquid.com/stock-images/metal-barrel-steel-y1ME6PC-600.jpg',
+        status: {
+            label: 'Available',
+            status: 'Available'
+        }
+    };
+
+    console.log(template);
+
+    const updates = {};
+    const path = `main/items/${data.type ? data.type.toLowerCase() : 'barrel'}/${id}`;
+    updates[path] = template;
+
+    return new Promise((resolve, reject) => {
+        update(ref(db), updates)
+            .then(() => resolve(template))
+            .catch((error) => reject(error));
+    });
+}
+
 
 export function updateUserData({data}) {
     const dbRef = ref(getDatabase());
@@ -75,8 +90,8 @@ export function updateUserData({data}) {
     // update(dbRef, updates).then();
 }
 
-export function getItem({id}) {
-    const starCountRef = ref(db, 'main/items/Barrel/' + id);
+export function getItem({ type, id}) {
+    const starCountRef = ref(db, 'main/items/' + type + '/' + id);
 
     return new Promise((resolve, reject) => {
         onValue(starCountRef, (snapshot) => {
@@ -88,8 +103,8 @@ export function getItem({id}) {
     });
 }
 
-export function removeItem({id}) {
-    const path = ref(db, 'main/items/Barrel/' + id);
+export function removeItem({element}) {
+    const path = ref(db, `main/items/${element ? element.type + '/' : 'Barrel/'}${element.id}`);
 
     return new Promise((resolve, reject) => {
         remove(path).then(() => {
