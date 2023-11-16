@@ -9,13 +9,15 @@ import {Skeleton} from "antd/lib";
 
 const ItemPage = () => {
     const currentUrl = window.location.href;
-    const id = currentUrl.split('_')[1];
+    console.log(currentUrl.split('_'))
+    const type = currentUrl.split('_')[1];
+    const id = currentUrl.split('_')[2];
     const [item, setItem] = useState(null);
 
     useEffect(() => {
         async function getItemId() {
             try {
-                const response = await getItem({ id });
+                const response = await getItem({ type, id });
                 setItem(response);
             } catch (error) {
                 console.error("Error fetching item:", error);

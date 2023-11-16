@@ -59,6 +59,26 @@ export const options = [
             },
         ],
     },
+    {
+        value: 'Noz',
+        label: 'Noz',
+        children: [
+            {
+                value: 'KRP-R-NOZ-100-Z',
+                label: 'KRP-R-NOZ-100-Z',
+            }
+        ],
+    },
+    {
+        value: 'Cardridge',
+        label: 'Cardridge',
+        children: [
+            {
+                value: 'KRP-ST-CART-310-B',
+                label: 'KRP-ST-CART-310-B',
+            }
+        ],
+    },
 ];
 
 export const location = [
@@ -265,6 +285,11 @@ export const Departments = [
         label: 'Mixing Department',
         description: 'Product Mixing and Barrel Filling Department',
         imgUrl: 'https://plus.unsplash.com/premium_photo-1682360983344-877be473ca3e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    },
+    {
+        label: 'Warehouse Department',
+        description: 'Department with management warehouse, add and remove some items from magazine',
+        imgUrl: 'https://www.amsc-usa.com/wp-content/uploads/2023/05/a-government-warehouse.jpg',
     },
     {
         label: 'Leaders Department',

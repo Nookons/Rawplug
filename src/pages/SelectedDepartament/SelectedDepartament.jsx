@@ -15,6 +15,9 @@ const SelectedDepartment = () => {
             case 'Mixing Department' :
                 navigate('/pick-dep/mixing-dep')
                 break;
+            case 'Warehouse Department' :
+                navigate('/pick-dep/warehouse')
+                break;
             default :
                 break;
         }
