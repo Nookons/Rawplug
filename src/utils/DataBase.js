@@ -1,5 +1,6 @@
 import {getDatabase, ref, onValue, remove, update} from "firebase/database";
 import {db} from "../firebase";
+import dayjs from "dayjs";
 
 export function writeUserAction({data}) {
     const template = {
@@ -22,24 +23,24 @@ export function writeUserAction({data}) {
 
 export function writeUserData({ data }) {
     const id = Date.now();
+    const timeStamp = dayjs().toString()
 
     const template = {
         id: id,
-        date: '22-10-2023',
-        mixingDate: '14-10-2023',
-        timeStamp: data && data.timeStamp !== undefined ? data.timeStamp : 'Test',
-        name: data && data.name ? data.name : 'Test',
-        type: data && data.type ? data.type : 'Test',
-        location: data && data.location ? data.location : 'A-2-3 Test',
-        batchNumber: data && data.batchNumber ? data.batchNumber : '19233 Test',
-        imgUrl: 'https://atlas-content-cdn.pixelsquid.com/stock-images/metal-barrel-steel-y1ME6PC-600.jpg',
+        date: timeStamp,
+        deliveredDate: data && data.deliveredDate ? data.deliveredDate : 'unknown',
+        timeStamp: timeStamp,
+        name: data && data.name ? data.name : 'unknown',
+        type: data && data.type ? data.type : 'unknown',
+        location: data && data.location ? data.location : 'unknown',
+        batchNumber: data && data.batchNumber ? data.batchNumber : null,
+        imgUrl: data ? data.imgUrl : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png',
+        additionalImg: data ? data.additionalImg : null,
         status: {
-            label: 'Available',
-            status: 'Available'
+            label: data.status.label,
+            status: data.status.status
         }
     };
-
-    console.log(template);
 
     const updates = {};
     const path = `main/items/${data.type ? data.type.toLowerCase() : 'barrel'}/${id}`;
@@ -104,7 +105,8 @@ export function getItem({ type, id}) {
 }
 
 export function removeItem({element}) {
-    const path = ref(db, `main/items/${element ? element.type + '/' : 'Barrel/'}${element.id}`);
+
+    const path = ref(db, `main/items/${element ? element.type.toLowerCase() + '/' : 'barrel/'}${element.id}`);
 
     return new Promise((resolve, reject) => {
         remove(path).then(() => {

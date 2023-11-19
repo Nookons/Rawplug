@@ -1,3 +1,46 @@
 .Main {
     min-height: calc(100dvh - 78px - 77px);
+    padding: 14px;
+}
+.MainInfoBlock {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+.ImgBlock {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1vw;
+    padding: 14px;
+    background: rgba(0,69,123,0.25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+.ImgBlock > div > div{
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1vw;
+    gap: 14px;
+}
+.ImgBlock > div > div > img{
+    max-width: 450px;
+    border-radius: 1vw;
+}
+
+.InfoBlock > div:last-child{
+    padding: 14px;
+    margin-top: 1vw;
+    display: flex;
+    border-radius: 4px;
+    justify-content: flex-end;
+    background: rgba(0,69,123,0.25);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+@media screen and(max-width: 1300px) {
+    .ImgBlock {
+        max-width: 100%;
+    }
 }

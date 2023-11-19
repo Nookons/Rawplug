@@ -70,8 +70,8 @@ export const options = [
         ],
     },
     {
-        value: 'Cardridge',
-        label: 'Cardridge',
+        value: 'Cartridge',
+        label: 'Cartridge',
         children: [
             {
                 value: 'KRP-ST-CART-310-B',

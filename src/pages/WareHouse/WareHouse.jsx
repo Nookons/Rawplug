@@ -14,12 +14,14 @@ import {fetchNoz} from "../../stores/asyncActions/noz";
 import {useNavigate} from "react-router-dom";
 import Meta from "antd/es/card/Meta";
 import BarrelWarehouse from "./items/BarrelWarehouse";
+import {fetchCartridge} from "../../stores/asyncActions/cartridge";
 
 const WareHouse = () => {
     const dispatch = useDispatch();
     const action = useSelector(state => state.action.action)
     const barrel = useSelector(state => state.barrel.barrel)
     const noz = useSelector(state => state.noz.noz)
+    const cartridge = useSelector(state => state.cartridge.cartridge)
 
     const [mainArray, setMainArray] = useState([]);
 
@@ -28,6 +30,7 @@ const WareHouse = () => {
     useEffect(() => {
         dispatch(fetchBarrel())
         dispatch(fetchNoz())
+        dispatch(fetchCartridge())
     }, []);
 
     const navigate = useNavigate();
@@ -35,10 +38,8 @@ const WareHouse = () => {
     const [modal, setModal] = useState(false);
 
     useEffect(() => {
-        setMainArray([...barrel, ...noz])
-    }, [noz])
-
-    console.log(mainArray)
+        setMainArray([...barrel, ...noz, ...cartridge])
+    }, [barrel])
 
     return (
         <div className={style.Main}>
