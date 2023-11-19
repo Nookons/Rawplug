@@ -17,6 +17,15 @@
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
+
+.Quantity {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.Quantity > div > span > span {
+    font-size: 16px;
+}
 .ImgBlock > div > div{
     display: flex;
     justify-content: flex-start;
