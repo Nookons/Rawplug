@@ -3,11 +3,19 @@ import styles from './Mixing.module.css'
 import Button from "antd/es/button";
 import Text from "antd/es/typography/Text";
 import Title from "antd/es/typography/Title";
-import {Timeline} from "antd";
-import {CheckCircleOutlined, ClockCircleOutlined, LoadingOutlined} from "@ant-design/icons";
+import {Breadcrumb, Timeline} from "antd";
+import {
+    ApartmentOutlined,
+    AppstoreOutlined,
+    CheckCircleOutlined,
+    ClockCircleOutlined,
+    HomeOutlined,
+    LoadingOutlined
+} from "@ant-design/icons";
 import dayjs from "dayjs";
 import TodayTimeline from "./depends/TodayTimeline";
 import {useNavigate} from "react-router-dom";
+import {Skeleton} from "antd/lib";
 
 const Mixing = () => {
     const [now, setNow] = useState();
@@ -26,10 +34,32 @@ const Mixing = () => {
 
     return (
         <div className={styles.Main}>
-
-            <Title level={5}>Date:
-                <Text type="secondary"> {now}</Text>
-            </Title>
+            <Breadcrumb
+                style={{padding: 14}}
+                items={[
+                    {
+                        href: '/',
+                        title: <HomeOutlined/>,
+                    },
+                    {
+                        href: '/pick-dep',
+                        title: (
+                            <>
+                                <AppstoreOutlined />
+                                <span>Department</span>
+                            </>
+                        ),
+                    },
+                    {
+                        title: (
+                            <>
+                                <ApartmentOutlined/>
+                                <span>Mixing Department</span>
+                            </>
+                        ),
+                    },
+                ]}
+            />
             <div className={styles.Parent}>
                 <div className={styles.TodaysView + ' ' + styles.AllChild}>
                     <Title level={2}>Today tasks</Title>

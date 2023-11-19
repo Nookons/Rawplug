@@ -9,6 +9,20 @@
     padding: 1vw;
 }
 
+.Svg {
+    font-size: 18px;
+    padding: 4px 14px;
+    //color: black;
+    border: 1px solid transparent;
+    border-radius: .5vw;
+    transition: .3s all ease;
+}
+.Svg:hover {
+    color: #ff4848;
+    border: 1px solid transparent;
+    background-color: #e5e5e5;
+}
+
 .Wrapper {
     display: flex;
     flex-direction: column;
@@ -28,4 +42,11 @@
     box-shadow: 5px 5px 15px rgba(0,0,0, 0.15);
     transform: scale(1.025);
     z-index: 3;
+}
+
+.Td {
+    white-space: nowrap;
+    padding: 4px 14px;
+    border-radius: 4px;
+    background-color: #85ffb2 !important;
 }
