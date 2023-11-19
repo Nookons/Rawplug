@@ -72,7 +72,7 @@ const BarrelWarehouse = ({array}) => {
 
         switch (event) {
             case true:
-                const processingItems = isSort ? sortArray.filter(e => e.status.status === 'processing') : uniqueBarrel.filter(e => e.status.status === 'processing');
+                const processingItems = isSort ? sortArray.filter(e => e.status.status === 'processing') : sortedBarrel.filter(e => e.status.status === 'processing');
                 setSortArray(processingItems);
                 setIsSort(true);
                 break;
@@ -80,22 +80,22 @@ const BarrelWarehouse = ({array}) => {
                 setIsSort(false);
                 break;
             case 'Noz':
-                const nozzleItems = uniqueBarrel.filter(e => e.type === 'Noz');
+                const nozzleItems = sortedBarrel.filter(e => e.type === 'Noz');
                 setSortArray(nozzleItems);
                 setIsSort(true);
                 break;
             case 'Barrel':
-                const barrelItems = uniqueBarrel.filter(e => e.type === 'Barrel');
+                const barrelItems = sortedBarrel.filter(e => e.type === 'Barrel');
                 setSortArray(barrelItems);
                 setIsSort(true);
                 break;
             case 'Cartridge':
-                const cartridgeItems = uniqueBarrel.filter(e => e.type === 'Cartridge');
+                const cartridgeItems = sortedBarrel.filter(e => e.type === 'Cartridge');
                 setSortArray(cartridgeItems);
                 setIsSort(true);
                 break;
             default:
-                setSortArray(uniqueBarrel);
+                setSortArray(sortedBarrel);
                 setIsSort(false);
         }
     }

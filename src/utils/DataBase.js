@@ -32,6 +32,8 @@ export function writeUserData({ data }) {
         timeStamp: timeStamp,
         name: data && data.name ? data.name : 'unknown',
         type: data && data.type ? data.type : 'unknown',
+        form: data && data.name == "KRP-R-NOZ-100-Z" ? 'NOZZLEX8' : null,
+        quantity: data && data.name == "KRP-R-NOZ-100-Z" ? 8723 : null,
         location: data && data.location ? data.location : 'unknown',
         batchNumber: data && data.batchNumber ? data.batchNumber : null,
         imgUrl: data ? data.imgUrl : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png',

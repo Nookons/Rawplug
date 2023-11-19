@@ -16,7 +16,7 @@ export const handleAddItem = async ({item, setCurrent, lastNumber}) => {
         imgUrl: getImg({item}),
         additionalImg: getAdditionalImg({item}),
         batchNumber: getBatchNumber({item, lastNumber}),
-        location: item.currentLocation ? item.currentLocation.join('-') : 'Unknown',
+        location: item.currentLocation ? item.currentLocation.join(' 👉 ') : 'Unknown',
         status: {
             label: getStatusLabel(item.status),
             status: item.status || 'Unknown',

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getItem, removeItem, updateUserData} from "../../utils/DataBase";
 import MyButton from "../../components/MyButton/MyButton";
-import {Badge, Breadcrumb, Descriptions, Image} from "antd";
+import {Badge, Breadcrumb, Descriptions, Image, Statistic} from "antd";
 import styles from "../../components/BarrelList/BarrelList.module.css";
 import style from "./ItemPage.module.css"
 import {
@@ -13,6 +13,7 @@ import {
     UserOutlined
 } from "@ant-design/icons";
 import {Skeleton} from "antd/lib";
+import CountUp from "react-countup";
 
 const ItemPage = () => {
     const currentUrl = window.location.href;
@@ -67,6 +68,8 @@ const ItemPage = () => {
         }
     }
 
+    const formatter = (value) => <CountUp end={value} separator="," />;
+
     const itemOptions = [
         item && item.status ? {
             key: '8',
@@ -74,10 +77,14 @@ const ItemPage = () => {
             children: <Badge className={rootClasses.join(' ')} status={item.status.status} text={item.status.label}/>,
             span: 3
         } : { key: '1', label: 'Status', children: 'Unknown' },
-        item && item.name ? { key: '2', label: 'Name', children: item.name } : { key: '3', label: 'Name', children: 'Unknown' },
+        item && item.name ? { key: '2', label: 'Name', children: item.name, span: 2 } : { key: '3', label: 'Name', children: 'Unknown' },
         item && item.type ? { key: '4', label: 'Type', children: item.type } : { key: '5', label: 'Type', children: 'Unknown' },
-        item && item.date ? { key: '6', label: 'Date', children: item.date } : { key: '7', label: 'Date', children: 'Unknown' },
-        item && item.timeStamp ? { key: '8', label: 'Last change', children: item.timeStamp, span: 2 } : { key: '9', label: 'Last change', children: 'Unknown' },
+        item && item.date ? { key: '6', label: 'Date', children: item.date, span: 2} : { key: '7', label: 'Date', children: 'Unknown' },
+        item && item.timeStamp ? { key: '8', label: 'Last change', children: item.timeStamp, span: 3 } : { key: '9', label: 'Last change', children: 'Unknown' },
+
+        item && item.form ? { key: '6', label: 'Form', children: item.form, span: 3 } : null,
+        item && item.quantity ? { key: '6', label: 'Quantity', children: <Statistic className={style.Quantity} value={item.quantity} precision={2} formatter={formatter} />, span: 3 } : null,
+
         item && item.type === 'Barrel' ? { key: '10', label: 'Mixing Date', children: item.deliveredDate } : null,
         item && item.type === 'Barrel' ? { key: '11', label: 'Batch N', children: item.batchNumber } : null,
         item && item.location ? { key: '12', label: 'Location', children: item.location } : { key: '13', label: 'Location', children: 'Unknown' },

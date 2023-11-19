@@ -83,68 +83,50 @@ export const options = [
 
 export const location = [
     {
-        value: 'A',
-        label: 'A',
+        value: 'Main hall',
+        label: 'Main hall',
         children: [
             {
-                value: '1',
-                label: '1',
+                value: 'First rack',
+                label: 'First rack',
                 children: [
                     {
-                        value: '1',
-                        label: '1'
+                        value: '1 Floor',
+                        label: '1 Floor'
                     },
                     {
-                        value: '2',
-                        label: '2'
+                        value: '2 Floor',
+                        label: '2 Floor'
                     },
                     {
-                        value: '3',
-                        label: '3'
+                        value: '3 Floor',
+                        label: '3 Floor'
                     },
                 ]
             },
             {
-                value: '2',
-                label: '2',
+                value: 'Secondary rack',
+                label: 'Secondary rack',
                 children: [
                     {
-                        value: '1',
-                        label: '1'
+                        value: '1 Floor',
+                        label: '1 Floor'
                     },
                     {
-                        value: '2',
-                        label: '2'
+                        value: '2 Floor',
+                        label: '2 Floor'
                     },
                     {
-                        value: '3',
-                        label: '3'
-                    }
+                        value: '3 Floor',
+                        label: '3 Floor'
+                    },
                 ]
             },
-            {
-                value: '3',
-                label: '3',
-                children: [
-                    {
-                        value: '1',
-                        label: '1'
-                    },
-                    {
-                        value: '2',
-                        label: '2'
-                    },
-                    {
-                        value: '3',
-                        label: '3'
-                    }
-                ]
-            }
         ],
     },
     {
-        value: 'B',
-        label: 'B',
+        value: 'A place the mix',
+        label: 'A place the mix',
         children: [
             {
                 value: '1',
