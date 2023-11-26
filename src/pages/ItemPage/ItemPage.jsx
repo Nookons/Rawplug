@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {getItem, removeItem, updateUserData} from "../../utils/DataBase";
 import MyButton from "../../components/MyButton/MyButton";
-import {Badge, Breadcrumb, Descriptions, Image, Statistic} from "antd";
+import {Badge, Breadcrumb, Descriptions, Image, message, Modal, Statistic} from "antd";
 import styles from "../../components/BarrelList/BarrelList.module.css";
 import style from "./ItemPage.module.css"
 import {
@@ -22,6 +22,10 @@ const ItemPage = () => {
     const id = currentUrl.split('_')[2];
     const [item, setItem] = useState(null);
 
+    const [changeItem, setChangeItem] = useState(null);
+    const [changeModal, setChangeModal] = useState(false);
+
+
     useEffect(() => {
         async function getItemId() {
             try {
@@ -38,15 +42,16 @@ const ItemPage = () => {
 
 
     async function deleteItem(e) {
-        const response = await removeItem({id})
-        console.log(response)
-        alert('Item deleted')
-        window.history.back();
-    }
+        const element = {
+            type: item.type,
+            id: item.id
+        }
+        const response = await removeItem({element})
 
-    function changeItem(e) {
-        const id = e.target.value
-        const response = updateUserData({id})
+        if (response === true) {
+            message.success('Item ' + element.id + ' was removed')
+            window.history.back()
+        }
     }
 
 
@@ -68,32 +73,95 @@ const ItemPage = () => {
         }
     }
 
-    const formatter = (value) => <CountUp end={value} separator="," />;
+    const formatter = (value) => <CountUp end={value} separator=","/>;
+
+    const onChangeSetting = useCallback((event) => {
+        setChangeItem(event)
+        setChangeModal(true)
+    }, []);
+
+    async function toUsed(data) {
+        const response = await updateUserData({data})
+
+        if (response) {
+            window.location.reload();
+        }
+    }
 
     const itemOptions = [
         item && item.status ? {
             key: '8',
             label: 'Status',
-            children: <Badge className={rootClasses.join(' ')} status={item.status.status} text={item.status.label}/>,
+            children: <div className={style.Settings_Change} onClick={() => onChangeSetting(item)}><Badge
+                className={rootClasses.join(' ')} status={item.status.status} text={item.status.label}/> <EditOutlined/>
+            </div>,
             span: 3
-        } : { key: '1', label: 'Status', children: 'Unknown' },
-        item && item.name ? { key: '2', label: 'Name', children: item.name, span: 2 } : { key: '3', label: 'Name', children: 'Unknown' },
-        item && item.type ? { key: '4', label: 'Type', children: item.type } : { key: '5', label: 'Type', children: 'Unknown' },
-        item && item.date ? { key: '6', label: 'Date', children: item.date, span: 2} : { key: '7', label: 'Date', children: 'Unknown' },
-        item && item.timeStamp ? { key: '8', label: 'Last change', children: item.timeStamp, span: 3 } : { key: '9', label: 'Last change', children: 'Unknown' },
+        } : {key: '1', label: 'Status', children: 'Unknown'},
+        item && item.name ? {
+            key: '2',
+            label: 'Name',
+            children: <div className={style.Settings_Change} onClick={() => onChangeSetting({item})}>{item.name}
+                <EditOutlined/></div>,
+            span: 2
+        } : {key: '3', label: 'Name', children: 'Unknown'},
+        item && item.type ? {
+            key: '4',
+            label: 'Type',
+            children: <div className={style.Settings_Change} onClick={() => onChangeSetting(item)}>{item.type}
+                <EditOutlined/></div>
+        } : {key: '5', label: 'Type', children: 'Unknown'},
+        item && item.date ? {key: '6', label: 'Date', children: item.date, span: 2} : {
+            key: '7',
+            label: 'Date',
+            children: 'Unknown'
+        },
+        item && item.timeStamp ? {key: '8', label: 'Last change', children: item.timeStamp, span: 3} : {
+            key: '9',
+            label: 'Last change',
+            children: 'Unknown'
+        },
 
-        item && item.form ? { key: '6', label: 'Form', children: item.form, span: 3 } : null,
-        item && item.quantity ? { key: '6', label: 'Quantity', children: <Statistic className={style.Quantity} value={item.quantity} precision={2} formatter={formatter} />, span: 3 } : null,
+        item && item.form ? {key: '6', label: 'Form', children: item.form, span: 3} : null,
+        item && item.quantity ? {
+            key: '6',
+            label: 'Quantity',
+            children: <Statistic className={style.Quantity} value={item.quantity} precision={2} formatter={formatter}/>,
+            span: 3
+        } : null,
 
-        item && item.type === 'Barrel' ? { key: '10', label: 'Mixing Date', children: item.deliveredDate } : null,
-        item && item.type === 'Barrel' ? { key: '11', label: 'Batch N', children: item.batchNumber } : null,
-        item && item.location ? { key: '12', label: 'Location', children: item.location } : { key: '13', label: 'Location', children: 'Unknown' },
+        item && item.type === 'Barrel' ? {
+            key: '10',
+            label: 'Mixing Date',
+            children: <div className={style.Settings_Change} onClick={() => onChangeSetting(item)}>{item.deliveredDate}
+                <EditOutlined/></div>
+        } : null,
+        item && item.type === 'Barrel' ? {
+            key: '11',
+            label: 'Batch N',
+            children: <div className={style.Settings_Change} onClick={() => onChangeSetting(item)}>{item.batchNumber}
+                <EditOutlined/></div>
+        } : null,
+        item && item.location ? {
+            key: '12',
+            label: 'Location',
+            children: <div className={style.Settings_Change} onClick={() => onChangeSetting(item)}>{item.location}
+                <EditOutlined/></div>
+        } : {key: '13', label: 'Location', children: 'Unknown'},
     ].filter(option => option !== null);
 
     // ...
 
     return (
         <div className={style.Main}>
+            <Modal
+                title={changeItem ? changeItem.name : 'Modal'}
+                open={changeModal}
+                okText="Confirm"
+                onOk={() => setChangeModal(false)}
+                onCancel={() => setChangeModal(false)}
+                cancelText="Cancel">
+                <p>Some contents...</p>
+            </Modal>
             <Breadcrumb
                 style={{padding: 14}}
                 items={[
@@ -105,7 +173,7 @@ const ItemPage = () => {
                         href: '/pick-dep',
                         title: (
                             <>
-                                <AppstoreOutlined />
+                                <AppstoreOutlined/>
                                 <span>Department</span>
                             </>
                         ),
@@ -135,30 +203,12 @@ const ItemPage = () => {
                                 src={item.imgUrl}
                             />
                         </div>
-                        <div>
-                            <Image.PreviewGroup>
-                                {item
-                                    ?
-                                    <div>
-                                        {item.additionalImg.map((e, index) => {
-                                            return (
-                                                <Image
-                                                    width={100}
-                                                    src={e.imgUrl}
-                                                />
-                                            )
-                                        })}
-                                    </div>
-                                    : null
-                                }
-                            </Image.PreviewGroup>
-                        </div>
                     </div>
                     <div className={style.InfoBlock}>
                         <Descriptions className={styles.itemOnPage} title='' bordered items={itemOptions}/>
                         <div>
-                            <MyButton><EditOutlined/></MyButton>
-                            <MyButton click={deleteItem}><DeleteOutlined/></MyButton>
+                            <MyButton click={() => toUsed(item.id)}>Change to used</MyButton>
+                            <MyButton click={() => deleteItem(item.id)}><DeleteOutlined/></MyButton>
                         </div>
                     </div>
                 </div>

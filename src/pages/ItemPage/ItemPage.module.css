@@ -9,13 +9,11 @@
     gap: 14px;
 }
 .ImgBlock {
-    display: flex;
-    flex-direction: column;
     border-radius: 1vw;
+    background: rgb(250, 250, 250);
+    border: 1px dashed gray;
+    margin: 0;
     padding: 14px;
-    background: rgba(0,69,123,0.25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
 }
 
 .Quantity {
@@ -43,9 +41,31 @@
     display: flex;
     border-radius: 4px;
     justify-content: flex-end;
-    background: rgba(0,69,123,0.25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    border: 1px dashed gray;
+}
+.InfoBlock > div{
+    background: rgb(250, 250, 250);
+}
+
+.Settings_Change {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    cursor: pointer;
+    padding: 4px 14px;
+    border-radius: 4px;
+    transition: .3s all ease;
+}
+.Settings_Change > span:last-child{
+    opacity: 0.25;
+    transition: .3s all ease;
+    cursor: pointer;
+}
+.Settings_Change:hover > span:last-child{
+    opacity: 1;
+}
+.Settings_Change:hover {
+    background-color: #8fff8f;
 }
 
 @media screen and(max-width: 1300px) {

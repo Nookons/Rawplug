@@ -58,33 +58,39 @@ export function writeUserData({ data }) {
 
 export function updateUserData({data}) {
     const dbRef = ref(getDatabase());
+    const isArr = Array.isArray(data)
 
     return new Promise((resolve, reject) => {
-        console.log(data)
         const updates = {};
         const date = new Date().toString();
 
-        console.log(date)
-        updates['/main/items/Cart/' + data.id + '/name'] = data.name;
-        updates['/main/items/Cart/' + data.id + '/type'] = data.type;
-        updates['/main/items/Cart/' + data.id + '/status/status'] = data.status;
-        console.log(data.status)
-        if (data.status === 'success') {
-            updates['/main/items/Cart/' + data.id + '/status/label'] = 'Used';
+        if (!isArr) {
+            updates['/main/items/barrel/' + data + '/status/status'] = 'success';
+            updates['/main/items/barrel/' + data + '/status/label'] = 'Used';
+            update(dbRef, updates).then();
+            resolve('All properties are defined');
         }
-        if (data.status === 'processing') {
-            updates['/main/items/Cart/' + data.id + '/status/label'] = 'Available';
-        }
-        if (data.status === 'error') {
-            updates['/main/items/Cart/' + data.id + '/status/label'] = 'Hold';
-        }
+        else {
+            updates['/main/items/Cart/' + data.id + '/name'] = data.name;
+            updates['/main/items/Cart/' + data.id + '/type'] = data.type;
+            updates['/main/items/Cart/' + data.id + '/status/status'] = data.status;
+            console.log(data.status)
+            if (data.status === 'success') {
+                updates['/main/items/Cart/' + data.id + '/status/label'] = 'Used';
+            }
+            if (data.status === 'processing') {
+                updates['/main/items/Cart/' + data.id + '/status/label'] = 'Available';
+            }
+            if (data.status === 'error') {
+                updates['/main/items/Cart/' + data.id + '/status/label'] = 'Hold';
+            }
 
-        updates['/main/items/Cart/' + data.id + '/changeDate'] = date;
+            updates['/main/items/Cart/' + data.id + '/changeDate'] = date;
 
-        update(dbRef, updates).then();
-        resolve('All properties are defined');
+            update(dbRef, updates).then();
+            resolve('All properties are defined');
+        }
     });
-
 
     // const updates = {};
     // updates['/main/items/Cart/' + id + '/status/label'] = 'Used';

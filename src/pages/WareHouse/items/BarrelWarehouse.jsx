@@ -1,16 +1,32 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Badge, Form, message, Select, Switch, Table} from "antd";
+import {Avatar, Badge, Card, Form, Image, List, message, Pagination, Select, Statistic, Switch, Table} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import Button from "antd/es/button";
 import {useNavigate} from "react-router-dom";
 import {fetchBarrel} from "../../../stores/asyncActions/barrel";
-import {CloseCircleOutlined, DeleteOutlined} from "@ant-design/icons";
+import {ArrowUpOutlined, CloseCircleOutlined, DeleteOutlined, LikeOutlined} from "@ant-design/icons";
 import {removeItem, writeUserData} from "../../../utils/DataBase";
 import styles from '../WareHouse.module.css'
 import Radio from "antd/es/radio";
+import axios from "axios";
+import Title from "antd/es/typography/Title";
+import Text from "antd/es/typography/Text";
+import Col from "antd/es/grid/col";
 
 const BarrelWarehouse = ({array}) => {
     const navigate = useNavigate();
+
+    const [films, setFilms] = useState([]);
+    const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        async function get () {
+            const response = await axios.get('https://api.themoviedb.org/3/trending/movie/week?api_key=c4c50394987b6e3577ec67e2240fed79&limit=10&page=' + page)
+            console.log(response.data)
+            setFilms(response.data)
+        }
+        get()
+    }, [page]);
 
     const [sortArray, setSortArray] = useState([]);
     const [selectType, setSelectType] = useState();
@@ -37,9 +53,6 @@ const BarrelWarehouse = ({array}) => {
     });
 
 // Now 'sortedBarrel' contains the sorted array based on the 'date' property
-
-
-
 
     const reloadPage = () => {
         navigate(window.location.pathname, {replace: true});
@@ -100,8 +113,9 @@ const BarrelWarehouse = ({array}) => {
         }
     }
 
-
-
+    function changePage(event) {
+        setPage(event)
+    }
 
     return (
         <div style={{
