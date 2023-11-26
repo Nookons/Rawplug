@@ -21,7 +21,7 @@ export function writeUserAction({data}) {
     });
 }
 
-export function writeUserData({ data }) {
+export function writeUserData({data}) {
     const id = Date.now();
     const timeStamp = dayjs().toString()
 
@@ -69,8 +69,7 @@ export function updateUserData({data}) {
             updates['/main/items/barrel/' + data + '/status/label'] = 'Used';
             update(dbRef, updates).then();
             resolve('All properties are defined');
-        }
-        else {
+        } else {
             updates['/main/items/Cart/' + data.id + '/name'] = data.name;
             updates['/main/items/Cart/' + data.id + '/type'] = data.type;
             updates['/main/items/Cart/' + data.id + '/status/status'] = data.status;
@@ -99,7 +98,23 @@ export function updateUserData({data}) {
     // update(dbRef, updates).then();
 }
 
-export function getItem({ type, id}) {
+export function toAvailable({data}) {
+    const dbRef = ref(getDatabase());
+    const isArr = Array.isArray(data)
+
+    return new Promise((resolve, reject) => {
+        const updates = {};
+        const date = new Date().toString();
+
+        updates['/main/items/barrel/' + data + '/status/status'] = 'processing';
+        updates['/main/items/barrel/' + data + '/status/label'] = 'Available';
+        update(dbRef, updates).then();
+        resolve('All properties are defined');
+    })
+}
+
+
+export function getItem({type, id}) {
     const starCountRef = ref(db, 'main/items/' + type + '/' + id);
 
     return new Promise((resolve, reject) => {

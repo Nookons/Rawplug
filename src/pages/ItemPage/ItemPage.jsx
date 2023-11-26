@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {getItem, removeItem, updateUserData} from "../../utils/DataBase";
+import {getItem, removeItem, toAvailable, updateUserData} from "../../utils/DataBase";
 import MyButton from "../../components/MyButton/MyButton";
 import {Badge, Breadcrumb, Descriptions, Image, message, Modal, Statistic} from "antd";
 import styles from "../../components/BarrelList/BarrelList.module.css";
@@ -85,6 +85,13 @@ const ItemPage = () => {
 
     async function toUsed(data) {
         const response = await updateUserData({data})
+
+        if (response) {
+            window.location.reload();
+        }
+    }
+    async function goAvailable(data) {
+        const response = await toAvailable({data})
 
         if (response) {
             window.location.reload();
@@ -210,7 +217,12 @@ const ItemPage = () => {
                     <div className={style.InfoBlock}>
                         <Descriptions className={styles.itemOnPage} title='' bordered items={itemOptions}/>
                         <div>
-                            <MyButton click={() => toUsed(item.id)}>Change to used</MyButton>
+                            {item.status.label === "Available"
+                                ?
+                                <MyButton click={() => toUsed(item.id)}>Change to used</MyButton>
+                                :
+                                <MyButton click={() => goAvailable(item.id)}>Change to Available</MyButton>
+                            }
                             <MyButton click={() => deleteItem(item.id)}><DeleteOutlined/></MyButton>
                         </div>
                     </div>
