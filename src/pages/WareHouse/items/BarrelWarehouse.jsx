@@ -162,10 +162,26 @@ const BarrelWarehouse = ({array}) => {
                         ),
                     },
                     {
+                        title: "Batch",
+                        dataIndex: "batchNumber",
+                        key: "batchNumber",
+                        style: {whiteSpace: 'nowrap'},
+                        render: (batchNumber, record) => (
+                            <p onClick={() => navigate(`/item?_${record.type.toLowerCase()}_${record.id}`)}>
+                                {batchNumber}
+                            </p>
+                        ),
+                    },
+                    {
                         title: "Type",
                         dataIndex: "type",
                         key: "type",
                         responsive: ["md"],
+                        render: (type, record) => (
+                            <p>
+                                {type}
+                            </p>
+                        ),
                     },
                     {
                         title: "Status",
@@ -178,6 +194,11 @@ const BarrelWarehouse = ({array}) => {
                         dataIndex: "location",
                         key: "location",
                         responsive: ["lg"],
+                        render: (location, record) => (
+                            <p>
+                                {location}
+                            </p>
+                        ),
                     },
                     {
                         title: "Remove Item",
