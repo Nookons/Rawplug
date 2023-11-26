@@ -14,8 +14,10 @@ import {
 } from "@ant-design/icons";
 import {Skeleton} from "antd/lib";
 import CountUp from "react-countup";
+import {useDispatch} from "react-redux";
 
 const ItemPage = () => {
+    const dispatch = useDispatch();
     const currentUrl = window.location.href;
     console.log(currentUrl.split('_'))
     const type = currentUrl.split('_')[1];
@@ -49,6 +51,7 @@ const ItemPage = () => {
         const response = await removeItem({element})
 
         if (response === true) {
+            dispatch({type: 'REMOVE_BARREL', payload: element.id})
             message.success('Item ' + element.id + ' was removed')
             window.history.back()
         }
