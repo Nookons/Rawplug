@@ -109,7 +109,7 @@ const AddItem = () => {
         },
         {
             title: isBarrel ? 'Select mixing date' : 'Select delivered date',
-            content: <DatePicker autoFocus={false} style={{width: '100%', margin: '14px 0'}}
+            content: <DatePicker autoFocus={'false'} style={{width: '100%', margin: '14px 0'}}
                                  onChange={onChangeDate}/>,
         },
         isBarrel ?
