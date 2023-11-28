@@ -31,18 +31,10 @@
     gap: 14px;
     width: 100%;
 }
+.Wrapper > div > div{
+    padding: 4px !important;
+}
 
-.Card {
-    cursor: pointer;
-    transition: .3s all ease-in-out;
-    overflow: hidden;
-    padding: 0 !important;
-}
-.Card:hover{
-    box-shadow: 5px 5px 15px rgba(0,0,0, 0.15);
-    transform: scale(1.025);
-    z-index: 3;
-}
 
 .Td {
     white-space: nowrap;
