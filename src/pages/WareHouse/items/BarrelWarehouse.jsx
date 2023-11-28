@@ -123,9 +123,6 @@ const BarrelWarehouse = ({array}) => {
             minHeight: 'calc(100dvh - 156px)'
         }}>
             <div style={{display: 'flex', gap: 14, padding: '1vw'}}>
-                <Button onClick={() => navigate('/add-item')} type="primary">Add item</Button>
-            </div>
-            <div style={{display: 'flex', gap: 14, padding: '1vw'}}>
                 <Form.Item label="Only available" name="Only available" valuePropName="checked">
                     <Switch onChange={sortArr}/>
                 </Form.Item>
