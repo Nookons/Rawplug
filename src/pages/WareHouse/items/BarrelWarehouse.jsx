@@ -45,11 +45,11 @@ const BarrelWarehouse = ({array}) => {
     // Assuming 'date' is a property in each item of the array
 
     const sortedBarrel = [...uniqueBarrel].sort((a, b) => {
-        const dateA = new Date(a.date);
-        const dateB = new Date(b.date);
+        const A = a.batchNumber;
+        const B = b.batchNumber;
 
         // Compare the dates for sorting
-        return dateA - dateB;
+        return A - B;
     });
 
 // Now 'sortedBarrel' contains the sorted array based on the 'date' property
