@@ -6,7 +6,7 @@ import {fetchBarrel} from "../../stores/asyncActions/barrel";
 import dayjs from "dayjs";
 import {
     Avatar,
-    Card,
+    Card, Form, Input,
     message,
     Skeleton,
 } from "antd";
@@ -23,7 +23,11 @@ const WareHouse = () => {
     const noz = useSelector(state => state.noz.noz)
     const cartridge = useSelector(state => state.cartridge.cartridge)
 
+    const [batchSearch, setBatchSearch] = useState(null); // Use null or an initial batch number value.
     const [mainArray, setMainArray] = useState([]);
+
+    const [isSearch, setIsSearch] = useState(false);
+    const [searchArray, setSearchArray] = useState([]);
 
     const [active, setActive] = useState(false);
 
@@ -41,10 +45,16 @@ const WareHouse = () => {
         setMainArray([...barrel, ...noz, ...cartridge])
     }, [barrel])
 
+    const batch = (event) => {
+        const batchNumber = parseInt(event, 10);
+        setBatchSearch(batchNumber);
+        setIsSearch(true);
+    }
+
     return (
         <div className={style.Main}>
             <div className={style.Wrapper}>
-                <BarrelWarehouse  array={mainArray}/>
+                <BarrelWarehouse  array={isSearch ? searchArray : mainArray}/>
             </div>
         </div>
     );

@@ -7,7 +7,7 @@ const FETCH_BARREL = "FETCH_BARREL"
 export const barrelReducer = (state = defaultStateBarrel, action) => {
     switch (action.type) {
         case "FETCH_BARREL":
-            return {...state, barrel: [...state.barrel, ...action.payload]};
+            return {...state, barrel: [...action.payload]};
         case "ADD_BARREL":
             return {...state, barrel: [...state.barrel, action.payload]}
         case "REMOVE_BARREL":
