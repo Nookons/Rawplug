@@ -13,7 +13,7 @@ import {fetchBarrel} from "../../stores/asyncActions/barrel";
 const AddItem = () => {
     const [current, setCurrent] = useState(0);
     const dispatch = useDispatch();
-    const barrel = useSelector(state => state.barrel.barrel) //Get barrel store
+    const barrel = useSelector(state => state.items.barrel) //Get barrel store
 
     const [isBarrel, setIsBarrel]                   = useState(false);  // check barrel type to steps
     const [isFocus, setIsFocus]                     = useState(false);  // check isFocus on input to BatchNumber

@@ -32,8 +32,8 @@ export function writeUserData({data}) {
         timeStamp: timeStamp,
         name: data && data.name ? data.name : 'unknown',
         type: data && data.type ? data.type : 'unknown',
-        form: data && data.name == "KRP-R-NOZ-100-Z" ? 'NOZZLEX8' : null,
-        quantity: data && data.name == "KRP-R-NOZ-100-Z" ? 8723 : null,
+        form: data && data.name === "KRP-R-NOZ-100-Z" ? 'NOZZLEX8' : null,
+        quantity: data && data.name === "KRP-R-NOZ-100-Z" ? 8723 : null,
         location: data && data.location ? data.location : 'unknown',
         batchNumber: data && data.batchNumber ? data.batchNumber : null,
         imgUrl: data ? data.imgUrl : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1200px-No_image_available.svg.png',
@@ -62,11 +62,12 @@ export function updateUserData({data}) {
 
     return new Promise((resolve, reject) => {
         const updates = {};
-        const date = new Date().toString();
+        const date = dayjs().toString()
 
         if (!isArr) {
-            updates['/main/items/barrel/' + data + '/status/status'] = 'success';
-            updates['/main/items/barrel/' + data + '/status/label'] = 'Used';
+            updates['/main/items/' + data.type + '/' + data.id + '/status/status'] = 'success';
+            updates['/main/items/' + data.type + '/' + data.id + '/status/label'] = 'Used';
+            updates['/main/items/' + data.type + '/' + data.id + '/timeStamp'] = date;
             update(dbRef, updates).then();
             resolve('All properties are defined');
         } else {
@@ -100,14 +101,14 @@ export function updateUserData({data}) {
 
 export function toAvailable({data}) {
     const dbRef = ref(getDatabase());
-    const isArr = Array.isArray(data)
 
     return new Promise((resolve, reject) => {
         const updates = {};
-        const date = new Date().toString();
+        const date = dayjs().toString()
 
-        updates['/main/items/barrel/' + data + '/status/status'] = 'processing';
-        updates['/main/items/barrel/' + data + '/status/label'] = 'Available';
+        updates['/main/items/' + data.type + '/' + data.id + '/status/status'] = 'processing';
+        updates['/main/items/' + data.type + '/' + data.id + '/status/label'] = 'Available';
+        updates['/main/items/' + data.type + '/' + data.id + '/timeStamp'] = date;
         update(dbRef, updates).then();
         resolve('All properties are defined');
     })

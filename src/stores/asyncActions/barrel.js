@@ -1,6 +1,6 @@
 import {ref, get} from "firebase/database";
 import {db} from "../../firebase";
-import {fetchBarrelAction} from "../barrelReducer";
+import {fetchBarrelAction} from "../itemsReducer";
 
 export const fetchBarrel = () => {
     const usersRef = ref(db, 'main/items/barrel');

@@ -83,14 +83,22 @@ const ItemPage = () => {
         setChangeModal(true)
     }, []);
 
-    async function toUsed(data) {
+    async function toUsed(item) {
+        const data = {
+            type: item.type.toLowerCase(),
+            id: item.id
+        }
         const response = await updateUserData({data})
 
         if (response) {
             window.location.reload();
         }
     }
-    async function goAvailable(data) {
+    async function goAvailable(item) {
+        const data = {
+            type: item.type.toLowerCase(),
+            id: item.id
+        }
         const response = await toAvailable({data})
 
         if (response) {
@@ -219,9 +227,9 @@ const ItemPage = () => {
                         <div>
                             {item.status.label === "Available"
                                 ?
-                                <MyButton click={() => toUsed(item.id)}>Change to used</MyButton>
+                                <MyButton click={() => toUsed(item)}>Change to used</MyButton>
                                 :
-                                <MyButton click={() => goAvailable(item.id)}>Change to Available</MyButton>
+                                <MyButton click={() => goAvailable(item)}>Change to Available</MyButton>
                             }
                             <MyButton click={() => deleteItem(item.id)}><DeleteOutlined/></MyButton>
                         </div>

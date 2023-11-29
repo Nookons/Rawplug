@@ -1,32 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {Avatar, Badge, Card, Form, Image, List, message, Pagination, Select, Statistic, Switch, Table} from "antd";
-import {useDispatch, useSelector} from "react-redux";
-import Button from "antd/es/button";
+import React, {useState} from 'react';
+import {
+    Avatar,
+    Badge,
+    Form,
+    message,
+    Select, Skeleton,
+    Switch,
+    Table
+} from "antd";
 import {useNavigate} from "react-router-dom";
-import {fetchBarrel} from "../../../stores/asyncActions/barrel";
-import {ArrowUpOutlined, CloseCircleOutlined, DeleteOutlined, LikeOutlined} from "@ant-design/icons";
-import {removeItem, writeUserData} from "../../../utils/DataBase";
+import {DeleteOutlined} from "@ant-design/icons";
+import {removeItem} from "../../../utils/DataBase";
 import styles from '../WareHouse.module.css'
-import Radio from "antd/es/radio";
-import axios from "axios";
-import Title from "antd/es/typography/Title";
-import Text from "antd/es/typography/Text";
-import Col from "antd/es/grid/col";
 
 const BarrelWarehouse = ({array}) => {
     const navigate = useNavigate();
-
-    const [films, setFilms] = useState([]);
-    const [page, setPage] = useState(1);
-
-    useEffect(() => {
-        async function get () {
-            const response = await axios.get('https://api.themoviedb.org/3/trending/movie/week?api_key=c4c50394987b6e3577ec67e2240fed79&limit=10&page=' + page)
-            console.log(response.data)
-            setFilms(response.data)
-        }
-        get()
-    }, [page]);
 
     const [sortArray, setSortArray] = useState([]);
     const [selectType, setSelectType] = useState();
@@ -81,7 +69,7 @@ const BarrelWarehouse = ({array}) => {
 
 
     function sortArr(event) {
-        setSelectType (event)
+        setSelectType(event)
 
         switch (event) {
             case true:
@@ -113,10 +101,6 @@ const BarrelWarehouse = ({array}) => {
         }
     }
 
-    function changePage(event) {
-        setPage(event)
-    }
-
     return (
         <div style={{
             padding: 14,
@@ -127,7 +111,7 @@ const BarrelWarehouse = ({array}) => {
                     <Switch onChange={sortArr}/>
                 </Form.Item>
                 <Form.Item label="Select type">
-                    <Select style={{ width: 150 }} value={selectType} onChange={sortArr}>
+                    <Select style={{width: 150}} value={selectType} onChange={sortArr}>
                         <Select.Option value="all">All</Select.Option>
                         <Select.Option value="Noz">Nozzle</Select.Option>
                         <Select.Option value="Barrel">Barrel</Select.Option>
@@ -184,7 +168,9 @@ const BarrelWarehouse = ({array}) => {
                         title: "Status",
                         dataIndex: "status", // Change dataIndex to "status"
                         key: "status.label",
-                        render: (status) => status ? <Badge className={status.status === 'processing'? styles.Td : null} status={status.status} text={status.label}/> : 'Unknown', // Access status.label here
+                        render: (status) => status ?
+                            <Badge className={status.status === 'processing' ? styles.Td : null} status={status.status}
+                                   text={status.label}/> : 'Unknown', // Access status.label here
                     },
                     {
                         title: "Location",
@@ -204,11 +190,20 @@ const BarrelWarehouse = ({array}) => {
                         responsive: ["lg"],
                         render: (id, record) => (
                             <a onClick={() => remove({record})}>
-                                <DeleteOutlined className={styles.Svg} />
+                                <DeleteOutlined className={styles.Svg}/>
                             </a>
                         ),
                     },
                 ]}
+                locale={{
+                    emptyText: <div style={{display: 'flex', gap: 14, flexDirection: 'column'}}>
+                        <Skeleton active/>
+                        <Skeleton active/>
+                        <Skeleton active/>
+                        <Skeleton active/>
+                        <Skeleton active/>
+                    </div>,
+                }}
                 dataSource={isSort ? sortArray.reverse() : sortedBarrel.reverse()}
                 rowKey="id"
             >

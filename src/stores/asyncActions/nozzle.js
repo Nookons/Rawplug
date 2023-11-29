@@ -1,10 +1,9 @@
 import {ref, get} from "firebase/database";
 import {db} from "../../firebase";
-import {fetchBarrelAction} from "../barrelReducer";
-import {fetchCartridgeAction} from "../cartridgeReducer";
+import {fetchNozzleAction} from "../itemsReducer";
 
-export const fetchCartridge = () => {
-    const usersRef = ref(db, 'main/items/cartridge');
+export const fetchNozzle = () => {
+    const usersRef = ref(db, 'main/items/noz');
 
     return function (dispatch) {
         get(usersRef)
@@ -13,7 +12,7 @@ export const fetchCartridge = () => {
                     const data = snapshot.val();
                     const dataArray = Object.values(data);
 
-                    dispatch(fetchCartridgeAction(dataArray))
+                    dispatch(fetchNozzleAction(dataArray))
                 }
             })
             .catch((error) => {

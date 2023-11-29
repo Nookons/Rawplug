@@ -1,11 +1,16 @@
-export const defaultStateBarrel = {
+export const defaultStateItems = {
     barrel: [],
+    noz: [],
+    cartridge: []
 }
 
 const FETCH_BARREL = "FETCH_BARREL"
+const FETCH_NOZZLE = "FETCH_NOZZLE"
 
-export const barrelReducer = (state = defaultStateBarrel, action) => {
+export const itemsReducer = (state = defaultStateItems, action) => {
     switch (action.type) {
+        case "FETCH_NOZZLE":
+            return {...state, noz: [...action.payload]};
         case "FETCH_BARREL":
             return {...state, barrel: [...action.payload]};
         case "ADD_BARREL":
@@ -17,5 +22,6 @@ export const barrelReducer = (state = defaultStateBarrel, action) => {
     }
 }
 
+export const fetchNozzleAction = (payload) => ({type: FETCH_NOZZLE, payload})
 export const fetchBarrelAction = (payload) => ({type: FETCH_BARREL, payload})
 
