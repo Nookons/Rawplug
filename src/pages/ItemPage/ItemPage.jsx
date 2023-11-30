@@ -14,7 +14,7 @@ import {
 } from "@ant-design/icons";
 import {Skeleton} from "antd/lib";
 import CountUp from "react-countup";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 const ItemPage = () => {
     const dispatch = useDispatch();
@@ -23,6 +23,7 @@ const ItemPage = () => {
     const type = currentUrl.split('_')[1];
     const id = currentUrl.split('_')[2];
     const [item, setItem] = useState(null);
+    const status = useSelector((state) => state.user.status);
 
     const [changeItem, setChangeItem] = useState(null);
     const [changeModal, setChangeModal] = useState(false);
@@ -44,16 +45,20 @@ const ItemPage = () => {
 
 
     async function deleteItem(e) {
-        const element = {
-            type: item.type,
-            id: item.id
-        }
-        const response = await removeItem({element})
+        if (status) {
+            const element = {
+                type: item.type,
+                id: item.id
+            }
+            const response = await removeItem({element})
 
-        if (response === true) {
-            dispatch({type: 'REMOVE_BARREL', payload: element.id})
-            message.success('Item ' + element.id + ' was removed')
-            window.history.back()
+            if (response === true) {
+                dispatch({type: 'REMOVE_BARREL', payload: element.id})
+                message.success('Item ' + element.id + ' was removed')
+                window.history.back()
+            }
+        }else {
+            message.error('Not available to unauthorized users')
         }
     }
 
@@ -84,25 +89,33 @@ const ItemPage = () => {
     }, []);
 
     async function toUsed(item) {
-        const data = {
-            type: item.type.toLowerCase(),
-            id: item.id
-        }
-        const response = await updateUserData({data})
+        if (status) {
+            const data = {
+                type: item.type.toLowerCase(),
+                id: item.id
+            }
+            const response = await updateUserData({data})
 
-        if (response) {
-            window.location.reload();
+            if (response) {
+                window.location.reload();
+            }
+        }else {
+            message.error('Not available to unauthorized users')
         }
     }
     async function goAvailable(item) {
-        const data = {
-            type: item.type.toLowerCase(),
-            id: item.id
-        }
-        const response = await toAvailable({data})
+        if (status) {
+            const data = {
+                type: item.type.toLowerCase(),
+                id: item.id
+            }
+            const response = await toAvailable({data})
 
-        if (response) {
-            window.location.reload();
+            if (response) {
+                window.location.reload();
+            }
+        }else {
+            message.error('Not available to unauthorized users')
         }
     }
 

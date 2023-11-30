@@ -6,6 +6,11 @@
     padding: 14px;
     border-bottom: 1px solid #464342;
 }
+.NavBar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
 .NavBar > a{
     color: #464342;
@@ -19,6 +24,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+    gap: 14px;
     top: 78px;
     right: 0;
     bottom: 0;
@@ -121,15 +127,21 @@
 .LogoPlace {
     display: flex;
     align-items: center;
+    gap: 14px;
     justify-content: space-between;
-    flex-direction: column;
+}
+.LogoPlace > div{
+    background-color: #dedede;
+    border-radius: 4px;
+    font-size: clamp(10px, 3vw, 14px);
+    padding: 4px 14px;
 }
 .LogoPlace > article{
     margin-left: 4px;
 }
 
 .LogoPlace > img{
-    max-width: 105px;
+    max-width: clamp(55px, 25vw, 105px);
 }
 @keyframes menuAnimation {
     0% {

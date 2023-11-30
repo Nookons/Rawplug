@@ -4,9 +4,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 14px;
     margin: 0 auto;
-    padding: 1vw;
 }
 
 .Svg {
@@ -31,14 +29,11 @@
     gap: 14px;
     width: 100%;
 }
+.Wrapper > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 .Wrapper > div > div{
     padding: 4px !important;
-}
-
-
-.Td {
-    white-space: nowrap;
-    padding: 4px 14px;
-    border-radius: 4px;
-    background-color: #85ffb2 !important;
 }
