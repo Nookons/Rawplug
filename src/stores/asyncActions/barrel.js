@@ -11,7 +11,6 @@ export const fetchBarrel = () => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
                 const dataArray = Object.values(data);
-
                 dispatch(fetchBarrelAction(dataArray))
             }
         })

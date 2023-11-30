@@ -12,59 +12,58 @@ import {useNavigate} from "react-router-dom";
 import {DeleteOutlined} from "@ant-design/icons";
 import {removeItem} from "../../../utils/DataBase";
 import styles from '../WareHouse.module.css'
+import {useDispatch, useSelector} from "react-redux";
 
 const BarrelWarehouse = ({array}) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const status = useSelector((state) => state.user.status);
 
     const [sortArray, setSortArray] = useState([]);
     const [selectType, setSelectType] = useState();
     const [isSort, setIsSort] = useState(false);
 
-    // Используем Set для хранения уникальных id
-    const uniqueIds = new Set();
-
-    const uniqueBarrel = array.filter(item => {
-        if (!uniqueIds.has(item.id)) {
-            uniqueIds.add(item.id);
-            return true;
-        }
-        return false;
-    });
-    // Assuming 'date' is a property in each item of the array
-
-    const sortedBarrel = [...uniqueBarrel].sort((a, b) => {
-        const A = a.batchNumber;
-        const B = b.batchNumber;
+    const sortedBarrel = [...array.noz, ...array.cartridge, ...array.barrel].sort((a, b) => {
+        const dateA = new Date(a.deliveredDate);
+        const dateB = new Date(b.deliveredDate);
 
         // Compare the dates for sorting
-        return A - B;
+        return dateA - dateB;
     });
 
-// Now 'sortedBarrel' contains the sorted array based on the 'date' property
-
-    const reloadPage = () => {
-        navigate(window.location.pathname, {replace: true});
-        window.location.reload();
-    };
 
     const remove = async ({record}) => {
-        console.log(record)
-        const element = {
-            type: record.type,
-            id: record.id
-        }
-
-        console.log(element)
-        const response = removeItem({element});
-        response.then(status => {
-                if (status === true) {
-                    message.success("Item " + record.id + " deleted")
-                    setTimeout(() => {
-                        reloadPage();
-                    }, 500)
-                }
+        if (status) {
+            const element = {
+                type: record.type,
+                id: record.id
             }
-        )
+
+            console.log(element.type)
+
+            switch (element.type.toLowerCase()) {
+                case "barrel":
+                    console.log(element.type)
+                    dispatch({type: "REMOVE_BARREL", payload: element})
+                    break
+                case "noz":
+                    console.log(element.type)
+                    dispatch({type: "REMOVE_NOZ", payload: element})
+                    break
+                case "cartridge":
+                    console.log(element.type)
+                    dispatch({type: "REMOVE_CARTRIDGE", payload: element})
+                    break
+            }
+
+            const response = removeItem({element});
+            response.then(status => {
+                    message.success("Item " + record.id + " deleted")
+                }
+            )
+        } else {
+            message.error('Not available to unauthorized users')
+        }
     }
 
 
@@ -103,9 +102,9 @@ const BarrelWarehouse = ({array}) => {
 
     return (
         <div style={{
-            padding: 14,
             minHeight: 'calc(100dvh - 156px)'
         }}>
+            <article>Filters:</article>
             <div style={{display: 'flex', gap: 14, padding: '1vw'}}>
                 <Form.Item label="Only available" name="Only available" valuePropName="checked">
                     <Switch onChange={sortArr}/>
@@ -169,17 +168,27 @@ const BarrelWarehouse = ({array}) => {
                         dataIndex: "status", // Change dataIndex to "status"
                         key: "status.label",
                         render: (status) => status ?
-                            <Badge className={status.status === 'processing' ? styles.Td : null} status={status.status}
-                                   text={status.label}/> : 'Unknown', // Access status.label here
+                            <Badge status={status.status} text={status.label}/> : 'Unknown', // Access status.label here
                     },
                     {
-                        title: "Location",
-                        dataIndex: "location",
-                        key: "location",
+                        title: "Date",
+                        dataIndex: "deliveredDate",
+                        key: "deliveredDate",
                         responsive: ["lg"],
-                        render: (location, record) => (
+                        render: (deliveredDate, record) => (
                             <p>
-                                {location}
+                                {deliveredDate}
+                            </p>
+                        ),
+                    },
+                    {
+                        title: "Add Date",
+                        dataIndex: "date",
+                        key: "date",
+                        responsive: ["lg"],
+                        render: (date, record) => (
+                            <p>
+                                {date}
                             </p>
                         ),
                     },
@@ -197,10 +206,6 @@ const BarrelWarehouse = ({array}) => {
                 ]}
                 locale={{
                     emptyText: <div style={{display: 'flex', gap: 14, flexDirection: 'column'}}>
-                        <Skeleton active/>
-                        <Skeleton active/>
-                        <Skeleton active/>
-                        <Skeleton active/>
                         <Skeleton active/>
                     </div>,
                 }}

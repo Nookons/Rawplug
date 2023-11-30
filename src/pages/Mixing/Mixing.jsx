@@ -16,10 +16,11 @@ import dayjs from "dayjs";
 import TodayTimeline from "./depends/TodayTimeline";
 import {useNavigate} from "react-router-dom";
 import {Skeleton} from "antd/lib";
+import {useSelector} from "react-redux";
 
 const Mixing = () => {
     const [now, setNow] = useState();
-
+    const user = useSelector((state) => state.user);
     const navigate = useNavigate();
 
     setTimeout(() => {
@@ -34,6 +35,14 @@ const Mixing = () => {
 
     return (
         <div className={styles.Main}>
+            {user.status
+                ?
+                <div>
+                    <h4>Enter status: {user.status.toString()}</h4>
+                    <h4>Email: {user.email}</h4>
+                </div>
+                : null
+            }
             <Breadcrumb
                 style={{padding: 14}}
                 items={[

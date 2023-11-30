@@ -91,6 +91,11 @@ const AddItem = () => {
 
     const addItem = async () => {
         const response = await handleAddItem({item, setCurrent, lastNumber})
+        dispatch({type: 'ADD_ACTION', payload: {
+                id: 'test',
+                actionType: 'test',
+                timeStamp: 'test',
+            }})
         dispatch({type:'ADD_' + item.type.toUpperCase(), payload: response})
 
         setCurrent(0)
